@@ -7,7 +7,7 @@ export const useChat = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
-    const sendMessage = async (message: string, isImage: boolean = false, file?: File | null) => {
+    const sendMessage = async (message: string, isImage: boolean = false, file?: File | null, query_type: string = 'general') => {
         setLoading(true);
         setError(null);
 
@@ -47,9 +47,9 @@ export const useChat = () => {
             } else {
                 const resp = await api.post<ChatResponse>('/api/v1/chat', {
                     message,
-                    query_type: 'general',
+                    query_type,
                     include_individual: true,
-                    history: messages.slice(-10) // Send last 10 messages as context
+                    history: messages.slice(-10),
                 });
 
                 const assistantMsg: ChatMessage = {

@@ -1,42 +1,62 @@
 'use client';
-import { IndividualResponses } from '@/lib/types';
-import { useState } from 'react';
-import ReactMarkdown from 'react-markdown';
 
-export default function ModelTabs({ responses }: { responses?: IndividualResponses }) {
-    const [activeTab, setActiveTab] = useState<'medgemma' | 'meditron' | 'medichat'>('medgemma');
+export type QueryType = 'general' | 'symptom' | 'clinical' | 'drug';
 
-    if (!responses) return null;
+interface ModelTabsProps {
+    value: QueryType;
+    onChange: (type: QueryType) => void;
+}
+
+const QUERY_TYPES: { value: QueryType; label: string; description: string; color: string }[] = [
+    {
+        value: 'general',
+        label: 'General',
+        description: 'Balanced response from all 3 models',
+        color: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30 hover:bg-cyan-500/30',
+    },
+    {
+        value: 'symptom',
+        label: 'Symptoms',
+        description: 'Patient-friendly explanation focus',
+        color: 'bg-violet-500/20 text-violet-300 border-violet-500/30 hover:bg-violet-500/30',
+    },
+    {
+        value: 'clinical',
+        label: 'Clinical',
+        description: 'Clinical reasoning & guidelines focus',
+        color: 'bg-blue-500/20 text-blue-300 border-blue-500/30 hover:bg-blue-500/30',
+    },
+    {
+        value: 'drug',
+        label: 'Medications',
+        description: 'Drug info & pharmacology focus',
+        color: 'bg-amber-500/20 text-amber-300 border-amber-500/30 hover:bg-amber-500/30',
+    },
+];
+
+export default function ModelTabs({ value, onChange }: ModelTabsProps) {
+    const active = QUERY_TYPES.find(t => t.value === value) ?? QUERY_TYPES[0];
 
     return (
-        <div className="mt-4 pt-4 border-t border-slate-200">
-            <div className="flex gap-2 border-b border-slate-200 pb-2 mb-3 overflow-x-auto no-scrollbar">
-                <button
-                    onClick={() => setActiveTab('medgemma')}
-                    className={`text-xs px-3 py-1.5 rounded-full font-medium transition-colors whitespace-nowrap ${activeTab === 'medgemma' ? 'bg-cyan-100 text-cyan-800' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-                        }`}
-                >
-                    MedGemma
-                </button>
-                <button
-                    onClick={() => setActiveTab('meditron')}
-                    className={`text-xs px-3 py-1.5 rounded-full font-medium transition-colors whitespace-nowrap ${activeTab === 'meditron' ? 'bg-violet-100 text-violet-800' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-                        }`}
-                >
-                    Meditron
-                </button>
-                <button
-                    onClick={() => setActiveTab('medichat')}
-                    className={`text-xs px-3 py-1.5 rounded-full font-medium transition-colors whitespace-nowrap ${activeTab === 'medichat' ? 'bg-amber-100 text-amber-800' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-                        }`}
-                >
-                    MediChat
-                </button>
+        <div className="space-y-2">
+            <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Query Focus</p>
+            <div className="flex flex-wrap gap-2">
+                {QUERY_TYPES.map(tab => (
+                    <button
+                        key={tab.value}
+                        onClick={() => onChange(tab.value)}
+                        title={tab.description}
+                        className={`text-xs px-3.5 py-1.5 rounded-full font-semibold border transition-all whitespace-nowrap
+                            ${value === tab.value
+                                ? tab.color.replace('hover:', '')
+                                : 'bg-slate-800 text-slate-400 border-slate-700 hover:border-slate-600'
+                            }`}
+                    >
+                        {tab.label}
+                    </button>
+                ))}
             </div>
-
-            <div className="text-sm prose prose-sm prose-slate max-w-none text-slate-600">
-                <ReactMarkdown>{responses[activeTab] || 'No individual response generated.'}</ReactMarkdown>
-            </div>
+            <p className="text-[10px] text-slate-500 mt-1">{active.description}</p>
         </div>
     );
 }

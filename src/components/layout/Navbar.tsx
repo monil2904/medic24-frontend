@@ -18,7 +18,7 @@ export default function Navbar() {
                                 <span className="text-white font-bold text-sm">M</span>
                             </div>
                             <span className="font-display text-xl font-bold text-white tracking-tight">
-                                Med<span className="text-cyan-400">24</span> AI
+                                Medic<span className="text-cyan-400">24</span> AI
                             </span>
                         </Link>
                         <div className="hidden sm:ml-8 sm:flex sm:space-x-6 items-center">

@@ -20,7 +20,7 @@ export const useSubscription = () => {
                     key: 'rzp_test_mock_key', // Replace with NEXT_PUBLIC_RAZORPAY_KEY
                     amount: planId === 'pro' ? 89900 : planId === 'medical_pro' ? 249900 : 29900,
                     currency: 'INR',
-                    name: 'Med24 AI',
+                    name: 'Medic24 AI',
                     description: `Upgrade to ${planId} plan`,
                     // order_id: order.data.order_id,
                     handler: async function (response: any) {

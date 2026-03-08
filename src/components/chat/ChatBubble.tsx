@@ -13,8 +13,8 @@ export default function ChatBubble({ msg }: { msg: ChatMessage }) {
         <div className={`flex w-full mb-6 ${isUser ? 'justify-end' : 'justify-start'}`}>
             <div
                 className={`max-w-[85%] sm:max-w-2xl flex flex-col ${isUser
-                        ? 'items-end'
-                        : 'items-start'
+                    ? 'items-end'
+                    : 'items-start'
                     }`}
             >
                 {/* Assistant Header Metadata */}
@@ -23,7 +23,7 @@ export default function ChatBubble({ msg }: { msg: ChatMessage }) {
                         <div className="w-6 h-6 rounded bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center text-white text-[10px] font-bold shadow-sm">
                             M
                         </div>
-                        <span className="text-xs font-bold text-slate-700">Med24 AI Ensemble</span>
+                        <span className="text-xs font-bold text-slate-700">Medic24 AI Ensemble</span>
                         <ConfidenceBadge score={msg.confidence} />
                     </div>
                 )}
@@ -31,8 +31,8 @@ export default function ChatBubble({ msg }: { msg: ChatMessage }) {
                 {/* Bubble Content */}
                 <div
                     className={`px-5 py-4 shadow-sm w-full ${isUser
-                            ? 'bg-gradient-to-br from-cyan-500 to-blue-600 text-white rounded-2xl rounded-tr-sm'
-                            : 'bg-white border border-slate-100 text-slate-800 rounded-2xl rounded-tl-sm'
+                        ? 'bg-gradient-to-br from-cyan-500 to-blue-600 text-white rounded-2xl rounded-tr-sm'
+                        : 'bg-white border border-slate-100 text-slate-800 rounded-2xl rounded-tl-sm'
                         }`}
                 >
                     {msg.is_emergency && <EmergencyAlert isEmergency={true} />}

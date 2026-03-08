@@ -110,7 +110,7 @@ function Navbar() {
             <span className="text-white font-bold text-sm">M</span>
           </div>
           <span className="font-display text-xl font-bold text-white tracking-tight">
-            Med<span className="text-cyan-400">24</span> AI
+            Medic<span className="text-cyan-400">24</span> AI
           </span>
         </a>
 
@@ -216,7 +216,7 @@ function HeroSection() {
             href="/chat"
             className="group flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold px-8 py-4 rounded-2xl text-lg shadow-2xl shadow-cyan-500/20 hover:shadow-cyan-500/40 transition-all hover:-translate-y-1"
           >
-            Try Med24 AI Free
+            Try Medic24 AI Free
             <IconArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </a>
           <a
@@ -252,7 +252,7 @@ function HeroSection() {
             <div className="w-3 h-3 rounded-full bg-yellow-500/60" />
             <div className="w-3 h-3 rounded-full bg-green-500/60" />
             <div className="flex-1 mx-4 h-7 bg-slate-800 rounded-lg flex items-center px-3">
-              <span className="text-xs text-slate-500">med24ai.in/chat</span>
+              <span className="text-xs text-slate-500">medic24ai.in/chat</span>
             </div>
           </div>
           <div className="bg-slate-950 rounded-xl p-6 min-h-[200px] space-y-4">
@@ -269,7 +269,7 @@ function HeroSection() {
                   <div className="w-5 h-5 rounded-md bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center">
                     <span className="text-[8px] text-white font-bold">M</span>
                   </div>
-                  <span className="text-xs font-medium text-cyan-400">Med24 AI</span>
+                  <span className="text-xs font-medium text-cyan-400">Medic24 AI</span>
                   <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400">High Confidence</span>
                 </div>
                 <p className="text-slate-300 leading-relaxed">
@@ -365,10 +365,10 @@ function HowItWorksSection() {
                 <div key={i} className="text-center p-4 rounded-xl bg-slate-800/50 border border-white/5">
                   <div
                     className={`w-10 h-10 rounded-lg mx-auto mb-3 flex items-center justify-center ${model.color === "cyan"
-                        ? "bg-cyan-500/20 text-cyan-400"
-                        : model.color === "violet"
-                          ? "bg-violet-500/20 text-violet-400"
-                          : "bg-amber-500/20 text-amber-400"
+                      ? "bg-cyan-500/20 text-cyan-400"
+                      : model.color === "violet"
+                        ? "bg-violet-500/20 text-violet-400"
+                        : "bg-amber-500/20 text-amber-400"
                       }`}
                   >
                     <IconBrain className="w-5 h-5" />
@@ -449,8 +449,8 @@ function PricingSection() {
             <div
               key={i}
               className={`relative rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 ${plan.popular
-                  ? "bg-gradient-to-b from-cyan-500/10 to-blue-600/5 border-2 border-cyan-500/30 shadow-xl shadow-cyan-500/10"
-                  : "bg-slate-900/40 border border-white/5 hover:border-white/15"
+                ? "bg-gradient-to-b from-cyan-500/10 to-blue-600/5 border-2 border-cyan-500/30 shadow-xl shadow-cyan-500/10"
+                : "bg-slate-900/40 border border-white/5 hover:border-white/15"
                 }`}
             >
               {plan.popular && (
@@ -492,8 +492,8 @@ function PricingSection() {
               <a
                 href={plan.monthlyPrice === 0 ? "/chat" : "/pricing"}
                 className={`block text-center text-sm font-semibold py-3 rounded-xl transition-all ${plan.popular
-                    ? "bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40 hover:-translate-y-0.5"
-                    : "bg-white/5 text-white border border-white/10 hover:bg-white/10 hover:border-white/20"
+                  ? "bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40 hover:-translate-y-0.5"
+                  : "bg-white/5 text-white border border-white/10 hover:bg-white/10 hover:border-white/20"
                   }`}
               >
                 {plan.cta}
@@ -518,7 +518,7 @@ function Footer() {
                 <span className="text-white font-bold text-sm">M</span>
               </div>
               <span className="font-display text-xl font-bold text-white tracking-tight">
-                Med<span className="text-cyan-400">24</span> AI
+                Medic<span className="text-cyan-400">24</span> AI
               </span>
             </div>
             <p className="text-slate-500 text-sm leading-relaxed max-w-sm mb-4">
@@ -554,7 +554,7 @@ function Footer() {
         {/* Medical Disclaimer */}
         <div className="rounded-xl bg-amber-500/5 border border-amber-500/10 p-4 mb-8">
           <p className="text-xs text-amber-500/80 leading-relaxed">
-            <strong>Medical Disclaimer:</strong> Med24 AI is an informational tool only and does not provide medical diagnosis, treatment, or professional medical advice. Always consult a qualified healthcare professional for medical decisions. In case of emergency, call 112 (India) or visit your nearest hospital immediately.
+            <strong>Medical Disclaimer:</strong> Medic24 AI is an informational tool only and does not provide medical diagnosis, treatment, or professional medical advice. Always consult a qualified healthcare professional for medical decisions. In case of emergency, call 112 (India) or visit your nearest hospital immediately.
           </p>
         </div>
 

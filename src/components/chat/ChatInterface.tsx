@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import ChatBubble from './ChatBubble';
 import ImageUpload from './ImageUpload';
 import LoadingIndicator from './LoadingIndicator';
+import ModelTabs, { QueryType } from './ModelTabs';
 import PaywallModal from './PaywallModal';
 import VoiceRecorder from './VoiceRecorder';
 
@@ -14,6 +15,8 @@ export default function ChatInterface() {
     const [isRecording, setIsRecording] = useState(false);
     const [selectedImage, setSelectedImage] = useState<File | null>(null);
     const [paywallOpen, setPaywallOpen] = useState(false);
+    const [queryType, setQueryType] = useState<QueryType>('general');
+    const [showQuerySelector, setShowQuerySelector] = useState(false);
     const messagesEndRef = useRef<HTMLDivElement>(null);
 
     const scrollToBottom = () => {
@@ -41,9 +44,10 @@ export default function ChatInterface() {
         setInput('');
         setSelectedImage(null);
         setIsRecording(false);
+        setShowQuerySelector(false);
 
         try {
-            await sendMessage(submittedText, isImageMode, file);
+            await sendMessage(submittedText, isImageMode, file, queryType);
         } catch (err) {
             console.error(err);
         }
@@ -54,6 +58,13 @@ export default function ChatInterface() {
             e.preventDefault();
             handleSubmit();
         }
+    };
+
+    const QUERY_TYPE_LABELS: Record<QueryType, string> = {
+        general: '⚖️ General',
+        symptom: '🩺 Symptoms',
+        clinical: '🔬 Clinical',
+        drug: '💊 Medications',
     };
 
     return (
@@ -81,11 +92,11 @@ export default function ChatInterface() {
                             </p>
 
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full max-w-2xl">
-                                <button onClick={() => setInput('I have a persistent headache and mild fever. What could it be?')} className="text-left px-5 py-3 rounded-2xl border border-slate-200 bg-white hover:border-cyan-300 hover:shadow-md transition-all">
+                                <button onClick={() => { setInput('I have a persistent headache and mild fever. What could it be?'); setQueryType('symptom'); }} className="text-left px-5 py-3 rounded-2xl border border-slate-200 bg-white hover:border-cyan-300 hover:shadow-md transition-all">
                                     <span className="block text-sm font-semibold text-slate-700 mb-1">Common Symptoms</span>
                                     <span className="block text-xs text-slate-500">Persistent headache with fever...</span>
                                 </button>
-                                <button onClick={() => setInput('What are the potential side effects of taking Amoxicillin 500mg?')} className="text-left px-5 py-3 rounded-2xl border border-slate-200 bg-white hover:border-cyan-300 hover:shadow-md transition-all">
+                                <button onClick={() => { setInput('What are the potential side effects of taking Amoxicillin 500mg?'); setQueryType('drug'); }} className="text-left px-5 py-3 rounded-2xl border border-slate-200 bg-white hover:border-cyan-300 hover:shadow-md transition-all">
                                     <span className="block text-sm font-semibold text-slate-700 mb-1">Drug Interactions</span>
                                     <span className="block text-xs text-slate-500">Side effects of Amoxicillin...</span>
                                 </button>
@@ -116,6 +127,15 @@ export default function ChatInterface() {
                 </div>
             </main>
 
+            {/* Query Type Popover */}
+            {showQuerySelector && (
+                <div className="absolute bottom-36 left-1/2 -translate-x-1/2 z-50 w-full max-w-sm px-4">
+                    <div className="bg-white rounded-2xl shadow-xl border border-slate-200 p-4">
+                        <ModelTabs value={queryType} onChange={(t) => { setQueryType(t); setShowQuerySelector(false); }} />
+                    </div>
+                </div>
+            )}
+
             {/* Input Area */}
             <div className="bg-white border-t border-slate-200 shadow-[0_-4px_20px_-10px_rgba(0,0,0,0.05)] w-full relative z-40">
                 <div className="max-w-4xl mx-auto px-4 py-4 sm:px-6">
@@ -135,6 +155,17 @@ export default function ChatInterface() {
                             selectedFile={selectedImage}
                             onImageSelect={setSelectedImage}
                         />
+
+                        {/* Query Type Button */}
+                        <button
+                            type="button"
+                            onClick={() => setShowQuerySelector(v => !v)}
+                            title="Change query focus"
+                            className="flex items-center gap-1 text-xs text-slate-500 border-r border-slate-200 pr-3 mr-1 py-1 hover:text-cyan-600 transition-colors whitespace-nowrap"
+                        >
+                            {QUERY_TYPE_LABELS[queryType]}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6" /></svg>
+                        </button>
 
                         <textarea
                             className="flex-1 max-h-32 min-h-[44px] bg-transparent resize-none outline-none py-3 px-2 text-slate-700 placeholder:text-slate-400 text-sm sm:text-base"
@@ -159,7 +190,7 @@ export default function ChatInterface() {
 
                     <div className="text-center mt-3 mb-1">
                         <span className="text-[10px] sm:text-xs text-slate-400 font-medium tracking-wide border border-transparent hover:border-slate-200 hover:bg-slate-50 px-3 py-1 rounded-full transition-colors cursor-default">
-                            Med24 AI can make mistakes. Always verify clinical information.
+                            Medic24 AI can make mistakes. Always verify clinical information.
                         </span>
                     </div>
                 </div>

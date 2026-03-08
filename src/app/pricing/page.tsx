@@ -21,7 +21,7 @@ export default function PricingPage() {
             name: 'Free',
             priceMonthly: 0,
             priceAnnual: 0,
-            description: 'Perfect to try out Med24 AI for simple queries.',
+            description: 'Perfect to try out Medic24 AI for simple queries.',
             features: ['5 General Queries/day', 'Text Chat Only', 'Community Support'],
             icon: <Star className="text-slate-400" size={24} />,
             color: 'slate'
@@ -82,10 +82,10 @@ export default function PricingPage() {
             // STEP 1: Create Order via Backend (Ideally)
             // For now, simulating order creation and firing Razorpay Test Mode
             const options = {
-                key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || 'rzp_test_dummykey123456',
+                key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || '',
                 amount: amount * 100, // Amount in paise
                 currency: 'INR',
-                name: 'Med24 AI',
+                name: 'Medic24 AI',
                 description: `Upgrade to ${planId.toUpperCase()} Plan`,
                 image: 'https://cdn-icons-png.flaticon.com/512/2966/2966327.png', // Temporary icon
                 handler: async function (response: any) {
