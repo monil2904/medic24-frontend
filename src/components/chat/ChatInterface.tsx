@@ -5,17 +5,24 @@ import { useEffect, useRef, useState } from 'react';
 import ChatBubble from './ChatBubble';
 import ImageUpload from './ImageUpload';
 import LoadingIndicator from './LoadingIndicator';
-import ModelTabs, { QueryType } from './ModelTabs';
+import ModelTabs from './ModelTabs';
 import PaywallModal from './PaywallModal';
-import VoiceRecorder from './VoiceRecorder';
+
+type QueryType = 'general' | 'symptom' | 'clinical' | 'drug';
+const QUERY_TYPES: { value: QueryType; label: string; description: string; color: string }[] = [
+    { value: 'general', label: 'General', description: 'Balanced response', color: 'bg-cyan-100 text-cyan-700 border-cyan-300' },
+    { value: 'symptom', label: 'Symptoms', description: 'Patient-friendly', color: 'bg-violet-100 text-violet-700 border-violet-300' },
+    { value: 'clinical', label: 'Clinical', description: 'Clinical reasoning', color: 'bg-blue-100 text-blue-700 border-blue-300' },
+    { value: 'drug', label: 'Medications', description: 'Drug info', color: 'bg-amber-100 text-amber-700 border-amber-300' }
+];
 
 export default function ChatInterface() {
     const { messages, sendMessage, loading, error } = useChat();
     const [input, setInput] = useState('');
-    const [isRecording, setIsRecording] = useState(false);
     const [selectedImage, setSelectedImage] = useState<File | null>(null);
     const [paywallOpen, setPaywallOpen] = useState(false);
     const [queryType, setQueryType] = useState<QueryType>('general');
+    const [modelMode, setModelMode] = useState('ensemble');
     const [showQuerySelector, setShowQuerySelector] = useState(false);
     const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -43,11 +50,10 @@ export default function ChatInterface() {
 
         setInput('');
         setSelectedImage(null);
-        setIsRecording(false);
         setShowQuerySelector(false);
 
         try {
-            await sendMessage(submittedText, isImageMode, file, queryType);
+            await sendMessage(submittedText, isImageMode, file, queryType, modelMode);
         } catch (err) {
             console.error(err);
         }
@@ -130,8 +136,16 @@ export default function ChatInterface() {
             {/* Query Type Popover */}
             {showQuerySelector && (
                 <div className="absolute bottom-36 left-1/2 -translate-x-1/2 z-50 w-full max-w-sm px-4">
-                    <div className="bg-white rounded-2xl shadow-xl border border-slate-200 p-4">
-                        <ModelTabs value={queryType} onChange={(t) => { setQueryType(t); setShowQuerySelector(false); }} />
+                    <div className="bg-white rounded-2xl shadow-xl border border-slate-200 p-4 flex flex-wrap gap-2 justify-center">
+                        {QUERY_TYPES.map(tab => (
+                            <button
+                                key={tab.value}
+                                onClick={() => { setQueryType(tab.value); setShowQuerySelector(false); }}
+                                className={`px-4 py-2 rounded-full text-xs font-semibold border transition-all ${queryType === tab.value ? tab.color : 'bg-slate-50 text-slate-500 border-slate-200 hover:bg-slate-100'}`}
+                            >
+                                {tab.label}
+                            </button>
+                        ))}
                     </div>
                 </div>
             )}
@@ -139,18 +153,11 @@ export default function ChatInterface() {
             {/* Input Area */}
             <div className="bg-white border-t border-slate-200 shadow-[0_-4px_20px_-10px_rgba(0,0,0,0.05)] w-full relative z-40">
                 <div className="max-w-4xl mx-auto px-4 py-4 sm:px-6">
+                    <ModelTabs selectedMode={modelMode} onSelect={setModelMode} />
                     <form
                         onSubmit={handleSubmit}
-                        className={`flex items-end gap-3 rounded-3xl border transition-all shadow-sm
-              ${isRecording ? 'border-red-300 bg-red-50/30' : 'border-slate-300 bg-white focus-within:border-cyan-400 focus-within:ring-4 focus-within:ring-cyan-500/10'} 
-              p-2 pr-4`}
+                        className="flex items-end gap-3 rounded-3xl border border-slate-300 bg-white transition-all shadow-sm focus-within:border-cyan-400 focus-within:ring-4 focus-within:ring-cyan-500/10 p-2 pr-4"
                     >
-                        <VoiceRecorder
-                            isRecording={isRecording}
-                            setIsRecording={setIsRecording}
-                            onTranscription={(text) => setInput(prev => prev ? `${prev} ${text}` : text)}
-                        />
-
                         <ImageUpload
                             selectedFile={selectedImage}
                             onImageSelect={setSelectedImage}
@@ -169,7 +176,7 @@ export default function ChatInterface() {
 
                         <textarea
                             className="flex-1 max-h-32 min-h-[44px] bg-transparent resize-none outline-none py-3 px-2 text-slate-700 placeholder:text-slate-400 text-sm sm:text-base"
-                            placeholder={isRecording ? 'Listening...' : selectedImage ? 'Add details about this image...' : 'Ask a medical question...'}
+                            placeholder={selectedImage ? 'Add details about this image...' : 'Ask a medical question...'}
                             value={input}
                             onChange={(e) => setInput(e.target.value)}
                             onKeyDown={handleKeyDown}

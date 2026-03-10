@@ -7,7 +7,7 @@ export const useChat = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
-    const sendMessage = async (message: string, isImage: boolean = false, file?: File | null, query_type: string = 'general') => {
+    const sendMessage = async (message: string, isImage: boolean = false, file?: File | null, query_type: string = 'general', model_mode: string = 'ensemble') => {
         setLoading(true);
         setError(null);
 
@@ -29,6 +29,9 @@ export const useChat = () => {
                 const formData = new FormData();
                 formData.append('file', file);
                 formData.append('query', message);
+                // When calling POST /api/v1/chat/image, always use model_mode: "gemma"
+                // because only Gemma supports image analysis.
+                formData.append('model_mode', "gemma");
 
                 const resp = await api.post('/api/v1/chat/image', formData, {
                     headers: { 'Content-Type': 'multipart/form-data' }
@@ -48,6 +51,7 @@ export const useChat = () => {
                 const resp = await api.post<ChatResponse>('/api/v1/chat', {
                     message,
                     query_type,
+                    model_mode,
                     include_individual: true,
                     history: messages.slice(-10),
                 });
