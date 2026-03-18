@@ -1,5 +1,4 @@
 import { AuthProvider } from '@/context/AuthContext';
-import { GoogleOAuthProvider } from '@react-oauth/google';
 import type { Metadata } from 'next';
 import { Bricolage_Grotesque, DM_Sans } from 'next/font/google';
 import './globals.css';
@@ -17,18 +16,14 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || '';
-
   return (
     <html lang="en">
       <body className={`${dmSans.variable} ${bricolage.variable}`}>
-        <GoogleOAuthProvider clientId={clientId}>
-          <AuthProvider>
-            <main className="min-h-screen flex flex-col">
-              {children}
-            </main>
-          </AuthProvider>
-        </GoogleOAuthProvider>
+        <AuthProvider>
+          <main className="min-h-screen flex flex-col">
+            {children}
+          </main>
+        </AuthProvider>
       </body>
     </html>
   );

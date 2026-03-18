@@ -42,8 +42,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         try {
             const resp = await api.get('/auth/me');
             setUser(resp.data);
-        } catch (err) {
-            console.error('Failed to refresh user', err);
+        } catch (err: any) {
+            if (err.response?.status !== 401) {
+                console.error('Failed to refresh user', err);
+            }
             // If 401, interceptor already cleared token from localstorage
             setToken(null);
             setUser(null);

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import api from "@/lib/api";
 
 // ======================== DATA ========================
 
@@ -413,9 +414,8 @@ function TodaysTipSection() {
   useEffect(() => {
     const fetchTip = async () => {
       try {
-        const res = await fetch("/api/v1/tips/today");
-        const data = await res.json();
-        setTip(data.tip);
+        const res = await api.get("/api/v1/tips/today");
+        setTip(res.data.tip);
       } catch (err) {
         console.error("Failed to fetch today's tip", err);
       } finally {
