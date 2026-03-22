@@ -99,7 +99,7 @@ export default function ChatInterface() {
             )}
 
             {/* Main Chat Area */}
-            <main className="flex-1 overflow-y-auto w-full pt-20 pb-4 px-4 sm:px-6">
+            <main className="flex-1 overflow-y-auto w-full pt-20 pb-[max(120px,env(safe-area-inset-bottom))] px-3 sm:px-6">
                 <div className="max-w-4xl mx-auto flex flex-col min-h-full justify-end">
 
                     {messages.length === 0 ? (
@@ -166,12 +166,27 @@ export default function ChatInterface() {
             )}
 
             {/* Input Area */}
-            <div className="bg-white border-t border-slate-200 shadow-[0_-4px_20px_-10px_rgba(0,0,0,0.05)] w-full relative z-40">
-                <div className="max-w-4xl mx-auto px-4 py-4 sm:px-6">
+            <div className="fixed bottom-0 left-0 right-0 z-[100] bg-slate-950 border-t border-white/5 pb-[max(12px,env(safe-area-inset-bottom))]">
+                <div className="max-w-4xl mx-auto px-3 py-2 sm:px-6">
                     <ModelTabs selectedMode={modelMode} onSelect={setModelMode} />
+                    
+                    {/* Small thumbnail preview */}
+                    {selectedImage && (
+                        <div className="mb-2 relative inline-block">
+                            <button
+                                onClick={() => setSelectedImage(null)}
+                                className="absolute -top-2 -right-2 bg-slate-800 text-white rounded-full p-1 border border-slate-700 w-5 h-5 flex items-center justify-center text-xs"
+                            >
+                                x
+                            </button>
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img src={URL.createObjectURL(selectedImage)} alt="Preview" className="w-10 h-10 object-cover rounded-lg border border-slate-700" />
+                        </div>
+                    )}
+
                     <form
                         onSubmit={handleSubmit}
-                        className="flex items-end gap-3 rounded-2xl border border-slate-200 bg-white transition-all shadow-md focus-within:border-blue-400 focus-within:ring-4 focus-within:ring-blue-500/10 p-2.5 pr-4"
+                        className="flex items-end gap-2"
                     >
                         <ImageUpload
                             selectedFile={selectedImage}
@@ -183,35 +198,36 @@ export default function ChatInterface() {
                             type="button"
                             onClick={() => setShowQuerySelector(v => !v)}
                             title="Change query focus"
-                            className="flex items-center gap-1 text-xs font-bold text-slate-500 border-r border-slate-100 pr-3 mr-1 py-1 hover:text-blue-600 transition-colors whitespace-nowrap"
+                            className="flex items-center justify-center w-11 h-11 shrink-0 text-slate-400 hover:text-white bg-slate-900 border border-slate-800 rounded-xl transition-colors"
                         >
-                            {QUERY_TYPE_LABELS[queryType]}
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6" /></svg>
+                            <span className="text-xl">{QUERY_TYPE_LABELS[queryType].split(' ')[0]}</span>
                         </button>
 
-                        <textarea
-                            className="flex-1 max-h-32 min-h-[44px] bg-transparent resize-none outline-none py-2.5 px-2 text-slate-800 font-medium placeholder:text-slate-400 text-sm sm:text-base"
-                            placeholder={selectedImage ? 'Add details about this image...' : 'Ask a medical question...'}
-                            value={input}
-                            onChange={(e) => setInput(e.target.value)}
-                            onKeyDown={handleKeyDown}
-                            disabled={loading}
-                            rows={1}
-                            style={{ height: 'auto' }}
-                        />
+                        <div className="flex-1 bg-slate-900 border border-slate-800 rounded-xl focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500 transition-all flex items-center overflow-hidden min-h-[44px]">
+                            <textarea
+                                className="flex-1 max-h-32 min-h-[44px] bg-transparent resize-none outline-none py-3 px-3 text-slate-200 font-medium placeholder:text-slate-500 text-base"
+                                placeholder={selectedImage ? 'Add details...' : 'Message Medic24...'}
+                                value={input}
+                                onChange={(e) => setInput(e.target.value)}
+                                onKeyDown={handleKeyDown}
+                                disabled={loading}
+                                rows={1}
+                                style={{ height: 'auto' }}
+                            />
+                        </div>
 
                         <button
                             type="submit"
                             disabled={loading || (!input.trim() && !selectedImage)}
-                            className="mb-0.5 p-2.5 rounded-xl flex-shrink-0 transition-all shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500
-                bg-blue-600 text-white hover:bg-blue-700 hover:shadow-md disabled:bg-slate-200 disabled:text-slate-400"
+                            className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 transition-all shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 focus:ring-offset-slate-950
+                bg-blue-600 text-white hover:bg-blue-700 hover:shadow-md disabled:bg-slate-800 disabled:text-slate-600"
                         >
                             <SendHorizontal size={20} />
                         </button>
                     </form>
 
-                    <div className="text-center mt-3 mb-1">
-                        <span className="text-[10px] sm:text-xs text-slate-400 font-medium tracking-wide border border-transparent hover:border-slate-200 hover:bg-slate-50 px-3 py-1 rounded-full transition-colors cursor-default">
+                    <div className="text-center mt-2.5 hidden sm:block">
+                        <span className="text-xs text-slate-500 font-medium tracking-wide">
                             Medic24 AI can make mistakes. Always verify clinical information.
                         </span>
                     </div>

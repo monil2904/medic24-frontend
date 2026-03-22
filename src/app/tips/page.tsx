@@ -73,13 +73,13 @@ export default function TipsPage() {
     <>
       <Navbar />
       <div className="min-h-screen bg-white pt-16">
-        <div className="max-w-6xl mx-auto px-5 py-12">
+        <div className="max-w-6xl mx-auto px-4 sm:px-5 py-6 sm:py-12">
           {/* Header */}
-          <div className="mb-8">
-            <h1 className="text-4xl font-black text-[#0F3460] mb-2 flex items-center gap-3">
+          <div className="mb-6 sm:mb-8 text-center sm:text-left">
+            <h1 className="text-2xl sm:text-4xl font-black text-[#0F3460] mb-2 flex items-center justify-center sm:justify-start gap-2 sm:gap-3">
               💡 Daily Health Tips
             </h1>
-            <p className="text-slate-500">
+            <p className="text-sm sm:text-base text-slate-500">
               Science-backed health advice for Indians. Rotate with the calendar!
             </p>
           </div>
@@ -87,19 +87,19 @@ export default function TipsPage() {
           {/* Today's Featured Tip */}
           {todayTip && !loading && (
             <div
-              className={`mb-12 rounded-2xl p-8 bg-gradient-to-br ${getCategoryColor(todayTip.category)} text-white shadow-md`}
+              className={`mb-8 sm:mb-12 rounded-2xl p-6 sm:p-8 bg-gradient-to-br ${getCategoryColor(todayTip.category)} text-white shadow-md`}
             >
-              <div className="flex items-start gap-4">
-                <span className="text-6xl">{todayTip.icon}</span>
-                <div className="flex-1">
-                  <div className="inline-block px-3 py-1 bg-white/20 rounded-full text-sm mb-3">
+              <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 text-center sm:text-left">
+                <span className="text-5xl sm:text-6xl">{todayTip.icon}</span>
+                <div className="flex-1 w-full flex flex-col items-center sm:items-start">
+                  <div className="inline-block px-3 py-1 bg-white/20 rounded-full text-xs sm:text-sm mb-3">
                     Today's Tip
                   </div>
-                  <h2 className="text-3xl font-bold mb-3">{todayTip.title}</h2>
-                  <p className="text-lg leading-relaxed">{todayTip.tip}</p>
+                  <h2 className="text-2xl sm:text-3xl font-bold mb-2 sm:mb-3">{todayTip.title}</h2>
+                  <p className="text-sm sm:text-lg leading-relaxed">{todayTip.tip}</p>
                   <button
                     onClick={() => shareOnWhatsApp(todayTip)}
-                    className="mt-4 px-4 py-2 bg-white/20 hover:bg-white/30 rounded-lg transition-colors text-sm font-semibold"
+                    className="mt-4 px-4 py-3 sm:py-2 bg-white/20 hover:bg-white/30 rounded-xl sm:rounded-lg transition-colors text-sm font-semibold w-full sm:w-auto min-h-[44px]"
                   >
                     📱 Share on WhatsApp
                   </button>
@@ -109,12 +109,12 @@ export default function TipsPage() {
           )}
 
           {/* Category Filter */}
-          <div className="mb-8">
-            <h3 className="text-lg font-semibold text-[#0F3460] mb-4">Filter by Category:</h3>
-            <div className="flex flex-wrap gap-2">
+          <div className="mb-6 sm:mb-8">
+            <h3 className="text-base sm:text-lg font-semibold text-[#0F3460] mb-3 sm:mb-4">Filter by Category:</h3>
+            <div className="flex overflow-x-auto gap-2 pb-2 [&::-webkit-scrollbar]:hidden w-full snap-x">
               <button
                 onClick={() => setSelectedCategory(null)}
-                className={`px-4 py-2 rounded-full font-semibold transition-colors ${
+                className={`flex-shrink-0 snap-start px-4 py-2 rounded-full font-semibold transition-colors text-sm sm:text-base min-h-[44px] ${
                   selectedCategory === null
                     ? "bg-[#0F3460] text-white"
                     : "bg-slate-100 text-slate-600 hover:bg-slate-200"
@@ -126,7 +126,7 @@ export default function TipsPage() {
                 <button
                   key={cat}
                   onClick={() => setSelectedCategory(cat)}
-                  className={`px-4 py-2 rounded-full font-semibold transition-colors capitalize ${
+                  className={`flex-shrink-0 snap-start px-4 py-2 rounded-full font-semibold transition-colors capitalize text-sm sm:text-base min-h-[44px] ${
                     selectedCategory === cat
                       ? "bg-[#0F3460] text-white"
                       : "bg-slate-100 text-slate-600 hover:bg-slate-200"
@@ -140,39 +140,39 @@ export default function TipsPage() {
 
           {/* Tips Grid */}
           {loading ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {[...Array(9)].map((_, i) => (
                 <div
                   key={i}
-                  className="h-64 bg-slate-100 rounded-2xl animate-pulse"
+                  className="h-48 sm:h-64 bg-slate-100 rounded-2xl animate-pulse"
                 ></div>
               ))}
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {filteredTips.map((tip) => (
                 <div
                   key={tip.id}
-                  className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-all hover:-translate-y-1 cursor-pointer group"
+                  className="bg-white rounded-2xl p-5 sm:p-6 border border-slate-200 shadow-sm hover:shadow-md transition-all hover:-translate-y-1 cursor-pointer group flex flex-col"
                 >
-                  <div className="flex items-start justify-between mb-4">
-                    <span className="text-4xl">{tip.icon}</span>
+                  <div className="flex items-start justify-between mb-3 sm:mb-4">
+                    <span className="text-3xl sm:text-4xl">{tip.icon}</span>
                     <span className="px-2 py-1 bg-blue-50 rounded-lg text-xs font-semibold text-blue-700 capitalize">
                       {tip.category}
                     </span>
                   </div>
 
-                  <h3 className="text-lg font-bold text-[#0F3460] mb-3 group-hover:text-blue-700 transition-colors">
+                  <h3 className="text-base sm:text-lg font-bold text-[#0F3460] mb-2 sm:mb-3 group-hover:text-blue-700 transition-colors">
                     {tip.title}
                   </h3>
 
-                  <p className="text-slate-500 text-sm mb-4 line-clamp-3">
+                  <p className="text-slate-500 text-xs sm:text-sm mb-4 line-clamp-3 lg:line-clamp-4 flex-1">
                     {tip.tip}
                   </p>
 
                   <button
                     onClick={() => shareOnWhatsApp(tip)}
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 hover:bg-[#0F3460] hover:text-white hover:border-[#0F3460] rounded-xl text-sm font-semibold transition-all text-slate-600"
+                    className="w-full px-3 py-3 sm:py-2 bg-slate-50 border border-slate-200 hover:bg-[#0F3460] hover:text-white hover:border-[#0F3460] rounded-xl text-sm font-semibold transition-all text-slate-600 min-h-[44px]"
                   >
                     📱 Share
                   </button>

@@ -9,11 +9,11 @@ export default function PrivacyPage() {
     return (
         <div className="bg-slate-950 min-h-screen text-white">
             <Navbar />
-            <div className="max-w-3xl mx-auto py-28 px-4 sm:px-6">
-                <div className="mb-12">
-                    <span className="text-xs font-bold uppercase tracking-widest text-cyan-400 mb-3 block">Legal</span>
-                    <h1 className="text-4xl font-extrabold text-white tracking-tight mb-4">Privacy Policy</h1>
-                    <p className="text-slate-400">Last updated: March 2025</p>
+            <div className="max-w-3xl mx-auto py-20 sm:py-28 px-4 sm:px-6">
+                <div className="mb-8 sm:mb-12">
+                    <span className="text-xs font-bold uppercase tracking-widest text-cyan-400 mb-2 sm:mb-3 block">Legal</span>
+                    <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-3 sm:mb-4">Privacy Policy</h1>
+                    <p className="text-xs sm:text-sm text-slate-400">Last updated: March 2025</p>
                 </div>
 
                 <div className="space-y-10 text-slate-300 text-sm leading-7">

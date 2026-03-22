@@ -61,7 +61,7 @@ export default function ChatBubble({ msg }: { msg: ChatMessage }) {
                         <img src={msg.base64Image} alt="User uploaded" className="max-w-xs rounded-xl mb-3 shadow-md" />
                     )}
 
-                    <div className={`text-sm md:text-base prose max-w-none ${isUser ? 'prose-invert text-white' : 'prose-slate'}`}>
+                    <div className={`text-sm md:text-base prose max-w-none break-words [word-break:break-word] prose-pre:overflow-x-auto prose-pre:text-xs prose-pre:max-w-[80vw] ${isUser ? 'prose-invert text-white' : 'prose-slate'}`}>
                         <ReactMarkdown remarkPlugins={[remarkGfm]}>{msg.content}</ReactMarkdown>
                     </div>
 

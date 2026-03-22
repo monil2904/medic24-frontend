@@ -212,123 +212,148 @@ export default function FirstAidPage() {
     <>
       <Navbar />
       <div className="min-h-screen bg-white pt-16">
-        <div className="max-w-6xl mx-auto px-5 py-12">
+        <div className="max-w-6xl mx-auto px-4 sm:px-5 py-6 sm:py-12">
           {/* Header */}
-          <div className="mb-8">
-            <h1 className="text-4xl font-black text-[#0F3460] mb-2 flex items-center gap-3">
+          <div className="mb-6 sm:mb-8 text-center sm:text-left">
+            <h1 className="text-2xl sm:text-4xl font-black text-[#0F3460] mb-2 flex items-center justify-center sm:justify-start gap-2 sm:gap-3">
               🚑 First Aid Guide
             </h1>
-            <p className="text-slate-500">
+            <p className="text-sm sm:text-base text-slate-500">
               Emergency procedures — works offline. For medical emergencies, always call 112/108.
             </p>
           </div>
 
           {/* Search */}
-          <div className="mb-8">
+          <div className="mb-6 sm:mb-8">
             <input
               type="text"
               placeholder="Search emergency guides..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:outline-none text-slate-800 placeholder-slate-400"
+              className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:outline-none text-slate-800 placeholder-slate-400 text-sm sm:text-base"
             />
           </div>
 
           {/* Critical Severity Notice */}
-          <div className="mb-8 p-4 bg-red-50 border border-red-300 rounded-xl flex items-start gap-3">
-            <span className="text-2xl">🚨</span>
+          <div className="mb-6 sm:mb-8 p-4 bg-red-50 border border-red-300 rounded-xl flex flex-col sm:flex-row items-start sm:items-center gap-3">
+            <span className="text-2xl sm:text-3xl hidden sm:block">🚨</span>
             <div>
-              <h3 className="font-bold text-red-700">For Critical Emergencies:</h3>
-              <p className="text-red-600 text-sm">
+              <h3 className="font-bold text-red-700 text-sm sm:text-base flex items-center gap-2">
+                <span className="sm:hidden">🚨</span> For Critical Emergencies:
+              </h3>
+              <p className="text-red-600 text-xs sm:text-sm mt-1">
                 Call 112 (Universal) or 108 (Ambulance). Always prioritize professional medical help.
               </p>
             </div>
           </div>
 
           {/* Guides Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {filteredGuides.map((guide) => (
-              <div key={guide.id} className="flex flex-col">
-                <button
-                  onClick={() =>
-                    setExpandedId(expandedId === guide.id ? null : guide.id)
-                  }
-                  className={`p-6 rounded-t-xl border border-b-0 text-left transition-all ${
-                    guide.severity === "critical"
-                      ? "bg-red-50 border-red-300 hover:bg-red-100"
-                      : "bg-amber-50 border-amber-300 hover:bg-amber-100"
-                  }`}
-                >
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-2">
-                        <span className="text-4xl">{guide.icon}</span>
-                        <h3 className="text-2xl font-bold text-[#0F3460]">{guide.title}</h3>
-                      </div>
-                      <p className="text-slate-600 text-sm">{guide.summary}</p>
+              <button
+                key={guide.id}
+                onClick={() => setExpandedId(guide.id)}
+                className={`flex flex-col p-4 sm:p-6 rounded-xl border text-left transition-all ${
+                  guide.severity === "critical"
+                    ? "bg-red-50 border-red-300 hover:bg-red-100"
+                    : "bg-amber-50 border-amber-300 hover:bg-amber-100"
+                }`}
+              >
+                <div className="flex items-start justify-between gap-3 sm:gap-4 w-full">
+                  <div className="flex-1 min-w-0">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 mb-2">
+                      <span className="text-3xl sm:text-4xl leading-none">{guide.icon}</span>
+                      <h3 className="text-lg sm:text-xl font-bold text-[#0F3460] leading-tight break-words">{guide.title}</h3>
                     </div>
-                    <div
-                      className={`px-3 py-1 rounded-full text-xs font-bold ${
-                        guide.severity === "critical"
-                          ? "bg-red-500 text-white"
-                          : "bg-amber-500 text-white"
-                      } whitespace-nowrap`}
-                    >
-                      {guide.severity.toUpperCase()}
-                    </div>
+                    <p className="text-slate-600 text-xs sm:text-sm line-clamp-2">{guide.summary}</p>
                   </div>
-                </button>
-
-                {/* Expanded Content */}
-                {expandedId === guide.id && (
-                  <div className="bg-white border border-slate-200 border-t-0 rounded-b-xl p-6">
-                    <div className="mb-6">
-                      <h4 className="font-bold text-[#0F3460] mb-3 text-lg">Steps to Follow:</h4>
-                      <ol className="space-y-3">
-                        {guide.steps.map((step, idx) => (
-                          <li key={idx} className="flex gap-4">
-                            <span className="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-[#0F3460] text-white font-bold text-sm">
-                              {idx + 1}
-                            </span>
-                            <span className="text-slate-600 pt-1">{step}</span>
-                          </li>
-                        ))}
-                      </ol>
-                    </div>
-
-                    <div className="p-4 bg-red-50 border border-red-300 rounded-xl mb-6">
-                      <h4 className="font-bold text-red-700 mb-2">⚠️ Warning:</h4>
-                      <p className="text-red-600 text-sm">{guide.warning}</p>
-                    </div>
-
-                    <button
-                      onClick={() => shareOnWhatsApp(guide)}
-                      className="w-full px-4 py-2 bg-[#0F3460] hover:bg-blue-900 text-white rounded-xl font-semibold transition-colors"
-                    >
-                      📱 Share on WhatsApp
-                    </button>
+                  <div
+                    className={`px-2 sm:px-3 py-1 rounded-full text-[10px] sm:text-xs font-bold shrink-0 ${
+                      guide.severity === "critical"
+                        ? "bg-red-500 text-white"
+                        : "bg-amber-500 text-white"
+                    } whitespace-nowrap`}
+                  >
+                    {guide.severity.toUpperCase()}
                   </div>
-                )}
-              </div>
+                </div>
+              </button>
             ))}
           </div>
 
+          {/* Expanded Guide Modal */}
+          {expandedId && (
+            <div className="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-sm flex items-end sm:items-center justify-center p-4 sm:p-6 overflow-y-auto">
+              <div className="bg-white rounded-t-2xl sm:rounded-2xl w-full max-w-2xl max-h-[90vh] flex flex-col shadow-xl animate-in fade-in slide-in-from-bottom-4 sm:slide-in-from-bottom-0 sm:zoom-in-95 mt-16 sm:mt-0">
+                {(() => {
+                  const guide = FIRST_AID_GUIDES.find(g => g.id === expandedId);
+                  if (!guide) return null;
+                  
+                  return (
+                    <>
+                      <div className="p-4 sm:p-6 border-b border-slate-100 flex items-center justify-between sticky top-0 bg-white rounded-t-2xl sm:rounded-2xl z-10">
+                        <div className="flex items-center gap-3">
+                          <span className="text-2xl sm:text-3xl">{guide.icon}</span>
+                          <h3 className="text-xl sm:text-2xl font-bold text-[#0F3460]">{guide.title}</h3>
+                        </div>
+                        <button 
+                          onClick={() => setExpandedId(null)}
+                          className="w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 text-slate-500 hover:bg-slate-200 transition-colors"
+                        >
+                          ✕
+                        </button>
+                      </div>
+                      
+                      <div className="p-4 sm:p-6 overflow-y-auto">
+                        <div className="mb-6">
+                          <h4 className="font-bold text-[#0F3460] mb-3 text-base sm:text-lg">Steps to Follow:</h4>
+                          <ol className="space-y-3 sm:space-y-4">
+                            {guide.steps.map((step, idx) => (
+                              <li key={idx} className="flex gap-3 sm:gap-4">
+                                <span className="flex-shrink-0 flex items-center justify-center w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-[#0F3460] text-white font-bold text-xs sm:text-sm mt-0.5 sm:mt-0">
+                                  {idx + 1}
+                                </span>
+                                <span className="text-slate-600 text-sm sm:text-base">{step}</span>
+                              </li>
+                            ))}
+                          </ol>
+                        </div>
+
+                        <div className="p-4 bg-red-50 border border-red-300 rounded-xl mb-6">
+                          <h4 className="font-bold text-red-700 mb-1 sm:mb-2 text-sm sm:text-base">⚠️ Warning:</h4>
+                          <p className="text-red-600 text-xs sm:text-sm">{guide.warning}</p>
+                        </div>
+
+                        <button
+                          onClick={() => shareOnWhatsApp(guide)}
+                          className="w-full px-4 py-3 sm:py-3.5 bg-[#0F3460] hover:bg-blue-900 text-white rounded-xl font-semibold transition-colors min-h-[44px]"
+                        >
+                          📱 Share on WhatsApp
+                        </button>
+                      </div>
+                    </>
+                  );
+                })()}
+              </div>
+            </div>
+          )}
+
           {filteredGuides.length === 0 && (
             <div className="text-center py-12 text-slate-400">
-              <p className="text-lg">No guides found</p>
+              <p className="text-sm sm:text-lg">No guides found</p>
             </div>
           )}
 
           {/* Emergency Numbers Card */}
-          <div className="mt-12 p-6 bg-white rounded-2xl border border-slate-200 shadow-sm">
-            <h3 className="text-xl font-bold text-[#0F3460] mb-4">📞 Important Emergency Numbers:</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-slate-600">
-              <div><span className="font-bold text-blue-600">112</span> - All Emergencies</div>
-              <div><span className="font-bold text-blue-600">108</span> - Ambulance</div>
-              <div><span className="font-bold text-blue-600">1075</span> - COVID Helpline</div>
-              <div><span className="font-bold text-blue-600">1800-599-0019</span> - Mental Health</div>
-              <div><span className="font-bold text-blue-600">1800-116-117</span> - Poison Control</div>
-              <div><span className="font-bold text-blue-600">9152987821</span> - iCall Crisis Line</div>
+          <div className="mt-8 sm:mt-12 p-5 sm:p-6 bg-white rounded-2xl border border-slate-200 shadow-sm">
+            <h3 className="text-lg sm:text-xl font-bold text-[#0F3460] mb-3 sm:mb-4">📞 Important Emergency Numbers:</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 text-xs sm:text-sm text-slate-600">
+              <div className="flex justify-between md:justify-start md:gap-2"><span className="font-bold text-blue-600">112</span> <span>- All Emergencies</span></div>
+              <div className="flex justify-between md:justify-start md:gap-2"><span className="font-bold text-blue-600">108</span> <span>- Ambulance</span></div>
+              <div className="flex justify-between md:justify-start md:gap-2"><span className="font-bold text-blue-600">1075</span> <span>- COVID Helpline</span></div>
+              <div className="flex justify-between md:justify-start md:gap-2"><span className="font-bold text-blue-600">1800-599-0019</span> <span>- Mental Health</span></div>
+              <div className="flex justify-between md:justify-start md:gap-2"><span className="font-bold text-blue-600">1800-116-117</span> <span>- Poison Control</span></div>
+              <div className="flex justify-between md:justify-start md:gap-2"><span className="font-bold text-blue-600">9152987821</span> <span>- iCall Crisis Line</span></div>
             </div>
           </div>
         </div>

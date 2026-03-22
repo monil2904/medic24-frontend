@@ -148,39 +148,39 @@ export default function PricingPage() {
             <Navbar />
             <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="lazyOnload" />
 
-            <div className="max-w-7xl mx-auto py-24 px-4 sm:px-6 lg:px-8 mt-12">
+            <div className="max-w-7xl mx-auto py-12 sm:py-24 px-4 sm:px-6 lg:px-8 mt-16 sm:mt-12">
                 <div className="text-center max-w-3xl mx-auto animate-in slide-in-from-bottom-4 duration-700">
-                    <h2 className="text-4xl font-extrabold text-slate-900 tracking-tight sm:text-5xl lg:text-6xl font-display">
+                    <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight sm:text-5xl lg:text-6xl font-display">
                         Simple, transparent pricing
                     </h2>
-                    <p className="mt-6 text-xl text-slate-500 leading-relaxed">
+                    <p className="mt-4 sm:mt-6 text-sm sm:text-xl text-slate-500 leading-relaxed max-w-[280px] sm:max-w-none mx-auto">
                         No hidden fees. No surprise charges. Choose the AI ensemble tier that perfectly matches your clinical intelligence needs.
                     </p>
                 </div>
 
                 {/* Billing Toggle */}
-                <div className="mt-12 flex justify-center animate-in fade-in duration-1000">
-                    <div className="relative flex items-center p-1 bg-slate-200/50 backdrop-blur-sm rounded-full border border-slate-200/60 shadow-inner">
+                <div className="mt-8 sm:mt-12 flex justify-center animate-in fade-in duration-1000">
+                    <div className="relative flex items-center p-1 bg-slate-200/50 backdrop-blur-sm rounded-full border border-slate-200/60 shadow-inner w-full max-w-[280px] sm:max-w-sm">
                         <button
                             onClick={() => setIsAnnual(false)}
-                            className={`relative w-40 rounded-full py-2.5 text-sm font-bold whitespace-nowrap transition-all duration-300 z-10 ${!isAnnual ? 'text-slate-900 shadow-sm' : 'text-slate-500 hover:text-slate-700'
+                            className={`relative w-1/2 sm:w-40 rounded-full py-2.5 text-xs sm:text-sm font-bold whitespace-nowrap transition-all duration-300 z-10 min-h-[44px] ${!isAnnual ? 'text-slate-900 shadow-sm' : 'text-slate-500 hover:text-slate-700'
                                 }`}
                         >
                             Monthly billing
                         </button>
                         <button
                             onClick={() => setIsAnnual(true)}
-                            className={`relative w-40 rounded-full py-2.5 text-sm font-bold whitespace-nowrap transition-all duration-300 z-10 ${isAnnual ? 'text-slate-900 shadow-sm' : 'text-slate-500 hover:text-slate-700'
+                            className={`relative w-1/2 sm:w-40 rounded-full py-2.5 text-xs sm:text-sm font-bold whitespace-nowrap transition-all duration-300 z-10 min-h-[44px] ${isAnnual ? 'text-slate-900 shadow-sm' : 'text-slate-500 hover:text-slate-700'
                                 }`}
                         >
                             Annual billing
                         </button>
                         <div
-                            className={`absolute top-1 bottom-1 w-40 bg-white rounded-full shadow-sm border border-slate-200/50 transition-transform duration-300 ease-in-out ${isAnnual ? 'translate-x-[100%]' : 'translate-x-0'}`}
+                            className={`absolute top-1 bottom-1 w-[calc(50%-4px)] sm:w-40 bg-white rounded-full shadow-sm border border-slate-200/50 transition-transform duration-300 ease-in-out ${isAnnual ? 'translate-x-[100%]' : 'translate-x-0'}`}
                         />
                     </div>
                     {isAnnual && (
-                        <div className="absolute ml-80 -mt-3 hidden sm:block">
+                        <div className="absolute ml-0 mt-16 sm:mt-0 sm:ml-80 -mt-3 hidden sm:block">
                             <span className="bg-gradient-to-r from-green-400 to-emerald-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider animate-pulse shadow-sm shadow-green-500/30">
                                 Save 16%
                             </span>
@@ -201,7 +201,7 @@ export default function PricingPage() {
                 )}
 
                 {/* Pricing Grid */}
-                <div className="mt-16 space-y-8 lg:space-y-0 lg:grid lg:grid-cols-4 lg:gap-6 animate-in slide-in-from-bottom-8 duration-700 delay-150">
+                <div className="mt-12 sm:mt-16 space-y-6 sm:space-y-8 lg:space-y-0 lg:grid lg:grid-cols-4 lg:gap-6 animate-in slide-in-from-bottom-8 duration-700 delay-150">
                     {plans.map((plan) => {
                         const price = isAnnual ? plan.priceAnnual : plan.priceMonthly;
                         const period = isAnnual ? '/year' : '/mo';
@@ -211,7 +211,7 @@ export default function PricingPage() {
                         let ringColor = 'border-slate-200';
                         let buttonClass = 'bg-slate-100 text-slate-800 hover:bg-slate-200';
                         if (plan.popular) {
-                            ringColor = 'border-cyan-400 ring-2 ring-cyan-400/20 shadow-xl shadow-cyan-500/10 scale-105 z-10';
+                            ringColor = 'border-cyan-400 ring-2 ring-cyan-400/20 shadow-xl shadow-cyan-500/10 scale-100 lg:scale-105 z-10';
                             buttonClass = 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40 hover:-translate-y-0.5';
                         } else if (plan.id === 'medical_pro') {
                             ringColor = 'border-slate-200 bg-slate-900 border-slate-800 text-white';
@@ -219,7 +219,7 @@ export default function PricingPage() {
                         }
 
                         return (
-                            <div key={plan.id} className={`relative p-8 rounded-[2rem] border flex flex-col transition-all duration-300 ${ringColor} ${plan.id !== 'medical_pro' ? 'bg-white' : ''}`}>
+                            <div key={plan.id} className={`relative p-6 sm:p-8 rounded-[2rem] border flex flex-col transition-all duration-300 ${ringColor} ${plan.id !== 'medical_pro' ? 'bg-white' : ''}`}>
                                 {plan.popular && (
                                     <div className="absolute -top-4 left-0 right-0 flex justify-center">
                                         <span className="bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-xs font-bold px-4 py-1 rounded-full uppercase tracking-wider shadow-sm">
@@ -229,7 +229,7 @@ export default function PricingPage() {
                                 )}
 
                                 <div className="flex-1">
-                                    <div className={`w-12 h-12 rounded-2xl flex items-center justify-center mb-6 shadow-sm
+                                    <div className={`w-12 h-12 rounded-2xl flex items-center justify-center mb-5 sm:mb-6 shadow-sm
                                         ${plan.id === 'free' ? 'bg-slate-100' : ''}
                                         ${plan.id === 'basic' ? 'bg-cyan-100' : ''}
                                         ${plan.id === 'pro' ? 'bg-violet-100' : ''}
@@ -238,15 +238,15 @@ export default function PricingPage() {
                                         {plan.icon}
                                     </div>
 
-                                    <h3 className={`text-2xl font-bold font-display ${plan.id === 'medical_pro' ? 'text-white' : 'text-slate-900'}`}>
+                                    <h3 className={`text-xl sm:text-2xl font-bold font-display ${plan.id === 'medical_pro' ? 'text-white' : 'text-slate-900'}`}>
                                         {plan.name}
                                     </h3>
 
-                                    <div className="mt-4 flex items-baseline text-slate-900">
-                                        <span className={`text-5xl font-extrabold tracking-tight ${plan.id === 'medical_pro' ? 'text-white' : ''}`}>
+                                    <div className="mt-4 flex items-baseline text-slate-900 break-words">
+                                        <span className={`text-4xl sm:text-5xl font-extrabold tracking-tight ${plan.id === 'medical_pro' ? 'text-white' : ''}`}>
                                             ₹{price}
                                         </span>
-                                        <span className={`ml-1 text-lg font-medium ${plan.id === 'medical_pro' ? 'text-slate-400' : 'text-slate-500'}`}>
+                                        <span className={`ml-1 text-sm sm:text-lg font-medium ${plan.id === 'medical_pro' ? 'text-slate-400' : 'text-slate-500'}`}>
                                             {period}
                                         </span>
                                     </div>
@@ -269,7 +269,7 @@ export default function PricingPage() {
                                 <button
                                     onClick={() => handleUpgrade(plan.id, price)}
                                     disabled={loadingPlan !== null || isCurrentPlan}
-                                    className={`mt-8 w-full py-4 px-6 rounded-xl text-center font-bold transition-all focus:outline-none flex justify-center items-center gap-2
+                                    className={`mt-6 sm:mt-8 w-full py-3.5 sm:py-4 px-4 sm:px-6 rounded-xl text-center font-bold transition-all focus:outline-none flex justify-center items-center gap-2 min-h-[44px]
                                         ${isCurrentPlan ? 'bg-slate-100 text-slate-400 border border-slate-200 cursor-not-allowed hidden' : buttonClass}
                                     `}
                                 >
@@ -284,7 +284,7 @@ export default function PricingPage() {
                                     )}
                                 </button>
                                 {isCurrentPlan && (
-                                    <div className={`mt-8 w-full py-4 px-6 rounded-xl text-center font-bold flex justify-center items-center gap-2 border border-slate-200 bg-slate-50 text-slate-400 cursor-default ${plan.id === 'medical_pro' ? 'border-slate-700 bg-slate-800' : ''}`}>
+                                    <div className={`mt-6 sm:mt-8 w-full py-3.5 sm:py-4 px-4 sm:px-6 rounded-xl text-center font-bold flex justify-center items-center gap-2 border border-slate-200 bg-slate-50 text-slate-400 cursor-default min-h-[44px] text-sm sm:text-base ${plan.id === 'medical_pro' ? 'border-slate-700 bg-slate-800' : ''}`}>
                                         Current Active Plan
                                     </div>
                                 )}

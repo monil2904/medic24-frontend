@@ -10,14 +10,14 @@ export default function DisclaimerPage() {
     return (
         <div className="bg-slate-950 min-h-screen text-white">
             <Navbar />
-            <div className="max-w-3xl mx-auto py-28 px-4 sm:px-6">
-                <div className="mb-12 text-center">
-                    <div className="w-20 h-20 rounded-3xl bg-amber-500/15 border border-amber-500/25 flex items-center justify-center mx-auto mb-6">
-                        <AlertTriangle size={36} className="text-amber-400" />
+            <div className="max-w-3xl mx-auto py-20 sm:py-28 px-4 sm:px-6">
+                <div className="mb-8 sm:mb-12 text-center">
+                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl sm:rounded-3xl bg-amber-500/15 border border-amber-500/25 flex items-center justify-center mx-auto mb-4 sm:mb-6">
+                        <AlertTriangle className="text-amber-400 w-8 h-8 sm:w-9 sm:h-9" />
                     </div>
-                    <span className="text-xs font-bold uppercase tracking-widest text-cyan-400 mb-3 block">Important Notice</span>
-                    <h1 className="text-4xl font-extrabold text-white tracking-tight mb-4">Medical Disclaimer</h1>
-                    <p className="text-slate-400 max-w-xl mx-auto">
+                    <span className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-cyan-400 mb-2 sm:mb-3 block">Important Notice</span>
+                    <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-3 sm:mb-4">Medical Disclaimer</h1>
+                    <p className="text-sm sm:text-base text-slate-400 max-w-xl mx-auto">
                         Please read this disclaimer carefully before using Med24 AI for any health-related purpose.
                     </p>
                 </div>

@@ -45,7 +45,7 @@ export default function UploadZone({ onFileSelect, isLoading }: UploadZoneProps)
 
     return (
         <div
-            className={`relative w-full border-2 border-dashed rounded-3xl p-12 text-center transition-all duration-200 ease-in-out
+            className={`relative w-full border-2 border-dashed rounded-3xl p-6 sm:p-12 text-center transition-all duration-200 ease-in-out
         ${dragActive ? 'border-cyan-400 bg-cyan-50/50 scale-[1.02]' : 'border-slate-300 bg-slate-50 hover:bg-slate-100 hover:border-cyan-300'}
         ${isLoading ? 'opacity-50 pointer-events-none grayscale' : 'cursor-pointer'}
       `}
@@ -65,14 +65,15 @@ export default function UploadZone({ onFileSelect, isLoading }: UploadZoneProps)
             />
 
             <div className="flex flex-col items-center justify-center space-y-4">
-                <div className={`w-20 h-20 rounded-full flex items-center justify-center mb-2 shadow-sm 
+                <div className={`w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center mb-2 shadow-sm 
           ${dragActive ? 'bg-cyan-100 text-cyan-600' : 'bg-white text-slate-400'}`}>
-                    <UploadCloud size={40} />
+                    <UploadCloud size={32} className="sm:hidden" />
+                    <UploadCloud size={40} className="hidden sm:block" />
                 </div>
-                <h3 className="text-2xl font-bold text-slate-800 font-display">
+                <h3 className="text-xl sm:text-2xl font-bold text-slate-800 font-display">
                     {dragActive ? "Drop your lab report here" : "Upload Lab Report"}
                 </h3>
-                <p className="text-slate-500 max-w-sm">
+                <p className="text-sm sm:text-base text-slate-500 max-w-sm">
                     Drag and drop your PDF or image here, or click to browse files.
                 </p>
                 <div className="flex items-center gap-4 mt-6 text-xs text-slate-400 font-medium uppercase tracking-wider">

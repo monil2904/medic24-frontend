@@ -14,22 +14,23 @@ const models = [
 
 export default function ModelTabs({ selectedMode, onSelect }: ModelTabsProps) {
     return (
-        <div className="w-full mb-3 flex justify-center">
-            <div className="bg-slate-100/90 p-1.5 rounded-2xl flex items-center gap-1 shadow-inner border border-slate-200/60 overflow-x-auto max-w-full scrollbar-hide snap-x">
+        <div className="w-full mb-3 flex justify-start sm:justify-center overflow-x-auto scrollbar-hide">
+            <div className="bg-slate-100/90 p-1.5 rounded-2xl flex items-center gap-1 shadow-inner border border-slate-200/60 w-max snap-x">
                 {models.map((m) => {
                     const active = selectedMode === m.id;
                     return (
                         <button
                             key={m.id}
                             onClick={() => onSelect(m.id)}
-                            className={`relative px-4 py-2 flex-shrink-0 flex items-center gap-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all duration-300 outline-none snap-start
+                            className={`relative px-3 py-1.5 flex-shrink-0 flex items-center gap-1.5 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all duration-300 outline-none snap-start
                                 ${active
                                     ? 'bg-white text-blue-700 shadow-sm border border-slate-200/80 ring-1 ring-slate-900/5 scale-100'
                                     : 'text-slate-500 hover:text-slate-700 hover:bg-slate-200/50 border border-transparent scale-95'
                                 }`}
                         >
                             <span className="text-sm sm:text-base leading-none opacity-90">{m.emoji}</span>
-                            {m.label}
+                            <span className="hidden sm:inline-block">{m.label}</span>
+                            <span className="sm:hidden">{m.label.split(' ')[0]}</span>
                         </button>
                     );
                 })}

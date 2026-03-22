@@ -95,32 +95,31 @@ export default function LabReportPage() {
             <Navbar />
             <PaywallModal isOpen={paywallOpen} onClose={() => setPaywallOpen(false)} title="Upgrade to Pro" message="Lab report analysis requires heavy AI vision models and is restricted to Pro plan users." />
 
-            <main className="flex-1 w-full max-w-5xl mx-auto px-4 py-16">
-
+            <main className="flex-1 w-full max-w-5xl mx-auto px-4 py-8 sm:py-16">
                 {/* Header section */}
-                <div className="mb-12 text-center">
-                    <h1 className="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight mb-4 font-display">
+                <div className="mb-8 sm:mb-12 text-center w-full">
+                    <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight mb-4 font-display">
                         Lab Report Intelligence
                     </h1>
-                    <p className="text-lg sm:text-xl text-slate-500 max-w-2xl mx-auto">
+                    <p className="text-sm sm:text-xl text-slate-500 max-w-2xl mx-auto">
                         Drop your blood test, lipid panel, or general lab report. We extract the biomarkers and explain what they mean.
                     </p>
                 </div>
 
                 {/* Upload State */}
                 {!result && (
-                    <div className="bg-white rounded-3xl shadow-sm border border-slate-200 p-2 max-w-3xl mx-auto">
+                    <div className="bg-white rounded-3xl shadow-sm border border-slate-200 p-2 sm:p-4 max-w-3xl mx-auto w-full">
                         <UploadZone onFileSelect={handleUpload} isLoading={loading} />
 
                         {loading && (
-                            <div className="w-full mt-6 mb-4 px-8 text-center animate-in fade-in duration-500">
+                            <div className="w-full mt-6 mb-4 px-4 sm:px-8 text-center animate-in fade-in duration-500">
                                 <div className="h-2 w-full bg-slate-100 rounded-full overflow-hidden mb-4 relative">
                                     <div
                                         className="absolute top-0 left-0 h-full bg-gradient-to-r from-cyan-500 to-blue-600 transition-all duration-1000 ease-out rounded-full"
                                         style={{ width: `${(loadingStep / 3) * 100}%` }}
                                     ></div>
                                 </div>
-                                <div className="flex justify-between text-xs font-semibold text-slate-400">
+                                <div className="flex justify-between text-[10px] sm:text-xs font-semibold text-slate-400">
                                     <span className={loadingStep >= 1 ? 'text-cyan-600' : ''}>1. OCR Extraction</span>
                                     <span className={loadingStep >= 2 ? 'text-cyan-600' : ''}>2. Parsing Values</span>
                                     <span className={loadingStep >= 3 ? 'text-cyan-600' : ''}>3. AI Analysis</span>
@@ -154,40 +153,40 @@ export default function LabReportPage() {
                         </div>
 
                         {/* Traffic Light Summary */}
-                        <div className={`rounded-3xl p-8 border ${result.abnormal_count > 0 ? 'bg-gradient-to-br from-amber-50 to-orange-50 border-amber-200 shadow-amber-500/5' : 'bg-gradient-to-br from-green-50 to-emerald-50 border-green-200 shadow-green-500/5'} shadow-lg relative overflow-hidden`}>
+                        <div className={`rounded-3xl p-6 sm:p-8 border ${result.abnormal_count > 0 ? 'bg-gradient-to-br from-amber-50 to-orange-50 border-amber-200 shadow-amber-500/5' : 'bg-gradient-to-br from-green-50 to-emerald-50 border-green-200 shadow-green-500/5'} shadow-lg relative overflow-hidden w-full`}>
                             {/* Decorative background circle */}
                             <div className={`absolute -right-20 -top-20 w-64 h-64 rounded-full blur-3xl opacity-50 ${result.abnormal_count > 0 ? 'bg-amber-400' : 'bg-green-400'}`}></div>
 
-                            <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center gap-6">
+                            <div className="relative z-10 flex flex-col md:flex-row items-center md:items-center gap-4 sm:gap-6 text-center md:text-left">
                                 <div className={`w-16 h-16 rounded-2xl flex items-center justify-center shrink-0 shadow-sm
                   ${result.abnormal_count > 0 ? 'bg-amber-100 text-amber-600' : 'bg-green-100 text-green-600'}`}>
                                     {result.abnormal_count > 0 ? <AlertTriangle size={32} /> : <CheckCircle2 size={32} />}
                                 </div>
                                 <div>
-                                    <h3 className="text-2xl font-bold text-slate-900 tracking-tight mb-2">
+                                    <h3 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight mb-2">
                                         {result.abnormal_count > 0
                                             ? `${result.abnormal_count} Abnormal Values Detected`
                                             : 'All Biometrics within Normal Range'}
                                     </h3>
-                                    <p className="text-slate-700 text-lg leading-relaxed">{result.summary}</p>
+                                    <p className="text-slate-700 text-sm sm:text-lg leading-relaxed">{result.summary}</p>
                                 </div>
                             </div>
                         </div>
 
                         {/* AI Explanation Markdown */}
-                        <div className="bg-white rounded-3xl shadow-sm border border-slate-200 p-8 md:p-10">
+                        <div className="bg-white rounded-3xl shadow-sm border border-slate-200 p-6 sm:p-8 md:p-10 w-full overflow-hidden">
                             <h3 className="text-xl font-bold text-slate-800 mb-6 font-display border-b border-slate-100 pb-4">
                                 Clinical Interpretation
                             </h3>
-                            <div className="prose prose-slate prose-lg max-w-none text-slate-600">
+                            <div className="prose prose-slate max-w-none text-sm sm:text-base break-words [word-break:break-word] text-slate-600 w-full">
                                 <ReactMarkdown>{result.ensemble_interpretation}</ReactMarkdown>
                             </div>
                         </div>
 
                         {/* Test Cards Grid */}
-                        <div className="mt-8">
+                        <div className="mt-8 w-full">
                             <h3 className="text-xl font-bold text-slate-800 mb-6 font-display">Extracted Data Points ({result.total_tests})</h3>
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 w-full">
                                 {result.parsed_results.map((test, idx) => (
                                     <LabResultCard key={idx} result={test} />
                                 ))}

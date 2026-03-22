@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import api from "@/lib/api";
-import TiltedCard from "@/components/TiltedCard";
 
 // ======================== DATA ========================
 
@@ -179,15 +178,21 @@ function SiteNavbar() {
           <Link href="/tips" className="text-sm font-medium text-slate-600 hover:text-blue-700 transition-colors">Tips</Link>
           <Link href="/first-aid" className="text-sm font-medium text-slate-600 hover:text-blue-700 transition-colors">First Aid</Link>
           <Link href="/tools" className="text-sm font-medium text-slate-600 hover:text-blue-700 transition-colors">Tools</Link>
-          <Link href="/lab-report" className="text-sm font-medium text-slate-600 hover:text-blue-700 transition-colors">Lab Analysis</Link>
+          <div className="relative group py-2">
+            <Link href="/lab-report" className="text-sm font-medium text-slate-600 hover:text-blue-700 transition-colors flex items-center gap-1">
+              Lab Analysis
+              <svg className="w-3.5 h-3.5 text-slate-400 group-hover:text-blue-600 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+            </Link>
+            <div className="absolute left-0 top-full mt-0 w-48 rounded-xl shadow-xl bg-white border border-slate-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-[200] overflow-hidden translate-y-2 group-hover:translate-y-0">
+                <Link href="/lab-report" className="block px-4 py-3 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-blue-600 border-b border-slate-50 transition-colors">Analyze Report</Link>
+                <Link href="/compare" className="block px-4 py-3 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-blue-600 transition-colors">Compare Reports</Link>
+            </div>
+          </div>
           <Link href="/pricing" className="text-sm font-medium text-slate-600 hover:text-blue-700 transition-colors">Pricing</Link>
         </div>
 
         {/* CTA */}
         <div className="hidden md:flex items-center gap-3">
-          <Link href="/login" className="text-sm font-medium text-slate-600 hover:text-blue-700 px-3 py-2 transition-colors">
-            Log in
-          </Link>
           <Link href="/login" className="text-sm font-semibold text-white bg-[#0F3460] hover:bg-blue-800 px-5 py-2.5 rounded-xl shadow-md transition-all hover:-translate-y-0.5">
             Sign in
           </Link>
@@ -215,7 +220,6 @@ function SiteNavbar() {
           <Link href="/lab-report" className="block text-slate-600 hover:text-blue-700 py-2" onClick={() => setMobileOpen(false)}>Lab Analysis</Link>
           <Link href="/pricing" className="block text-slate-600 hover:text-blue-700 py-2" onClick={() => setMobileOpen(false)}>Pricing</Link>
           <div className="pt-3 border-t border-blue-100 flex gap-3">
-            <Link href="/login" className="flex-1 text-center text-sm text-slate-600 border border-slate-200 px-4 py-2.5 rounded-xl">Log in</Link>
             <Link href="/login" className="flex-1 text-center text-sm font-semibold text-white bg-[#0F3460] px-4 py-2.5 rounded-xl">Sign in</Link>
           </div>
         </div>
@@ -243,29 +247,29 @@ function HeroSection() {
         </div>
 
         {/* Headline */}
-        <h1 className="text-5xl sm:text-6xl md:text-7xl font-black text-[#0F3460] leading-tight tracking-tight mb-6">
+        <h1 className="text-3xl sm:text-6xl md:text-7xl font-black text-[#0F3460] leading-tight tracking-tight mb-6">
           Your Clinical<br />
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-900">Intelligence Partner</span>
         </h1>
 
         {/* Subtitle */}
-        <p className="text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto mb-10 leading-relaxed">
+        <p className="text-base sm:text-xl text-slate-600 max-w-full lg:max-w-2xl px-4 sm:px-0 mx-auto mb-10 leading-relaxed">
           Instant, evidence-based medical insights. Chat with symptoms, analyze lab reports,
           look up medicines, access first aid guides, track health with tools — all powered by an ensemble AI engine.
         </p>
 
         {/* Buttons */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
+        <div className="flex flex-col sm:flex-row w-full items-center justify-center gap-4 mb-8 px-4 sm:px-0">
           <Link
             href="/chat"
-            className="flex items-center gap-2 bg-[#0F3460] hover:bg-blue-900 text-white font-semibold px-8 py-4 rounded-2xl text-lg shadow-xl shadow-blue-900/20 hover:shadow-blue-900/30 transition-all hover:-translate-y-0.5"
+            className="flex w-full sm:w-auto justify-center items-center gap-2 bg-[#0F3460] hover:bg-blue-900 text-white font-semibold px-8 py-4 rounded-2xl text-lg shadow-xl shadow-blue-900/20 hover:shadow-blue-900/30 transition-all hover:-translate-y-0.5"
           >
             Start Chatting
             <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
           </Link>
           <Link
             href="/lab-report"
-            className="flex items-center gap-2 text-[#0F3460] font-semibold border-2 border-[#0F3460]/20 hover:border-[#0F3460]/50 bg-white/80 hover:bg-white px-8 py-4 rounded-2xl text-lg transition-all hover:-translate-y-0.5 shadow-sm"
+            className="flex w-full sm:w-auto justify-center items-center gap-2 text-[#0F3460] font-semibold border-2 border-[#0F3460]/20 hover:border-[#0F3460]/50 bg-white/80 hover:bg-white px-8 py-4 rounded-2xl text-lg transition-all hover:-translate-y-0.5 shadow-sm"
           >
             Analyze Lab Report
           </Link>
@@ -322,12 +326,12 @@ function FeaturesSection() {
         </div>
 
         {/* Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((f, i) => (
             <Link
               key={i}
               href={f.href}
-              className={`group ${f.bg} rounded-2xl p-7 border border-slate-100 block transition-all duration-300 hover:shadow-xl`}
+              className={`group ${f.bg} rounded-2xl p-5 sm:p-7 mx-4 sm:mx-0 border border-slate-100 block transition-all duration-300 hover:shadow-xl`}
               style={{ perspective: '800px' }}
               onMouseMove={(e) => {
                 const rect = e.currentTarget.getBoundingClientRect();
@@ -339,7 +343,7 @@ function FeaturesSection() {
                 e.currentTarget.style.transform = 'rotateY(0deg) rotateX(0deg) scale(1)';
               }}
             >
-              <div className={`w-12 h-12 ${f.iconBg} rounded-xl flex items-center justify-center text-2xl mb-5 shadow-sm group-hover:scale-110 transition-transform`}>
+              <div className={`w-10 h-10 sm:w-12 sm:h-12 ${f.iconBg} rounded-xl flex items-center justify-center text-xl sm:text-2xl mb-4 sm:mb-5 shadow-sm group-hover:scale-110 transition-transform`}>
                 {f.emoji}
               </div>
               <h3 className="text-lg font-bold text-[#0F3460] mb-2 group-hover:text-blue-700 transition-colors">{f.title}</h3>
@@ -373,7 +377,7 @@ function HowItWorksSection() {
             { num: "02", title: "AI models analyze together", desc: "Gemma 3 27B, Qwen 2.5 72B, and Llama 3.1 8B process your query simultaneously — clinical reasoning, guideline matching, and plain-language explanation." },
             { num: "03", title: "Get your answer", desc: "Receive a merged, confidence-scored response with source model attribution. Emergency alerts auto-trigger for critical symptoms." },
           ].map((step, i) => (
-            <div key={i} className="bg-white/80 backdrop-blur rounded-2xl p-7 border border-blue-100 shadow-sm hover:shadow-md transition-all">
+            <div key={i} className="bg-white/80 backdrop-blur rounded-2xl p-7 border border-blue-100 shadow-sm hover:shadow-md transition-all text-center md:text-left">
               <span className="text-6xl font-black text-blue-100 leading-none block mb-2">{step.num}</span>
               <h3 className="text-xl font-bold text-[#0F3460] mb-3">{step.title}</h3>
               <p className="text-slate-600 leading-relaxed">{step.desc}</p>
@@ -382,9 +386,9 @@ function HowItWorksSection() {
         </div>
 
         {/* Model visualization */}
-        <div className="max-w-3xl mx-auto bg-white rounded-2xl border border-blue-100 shadow-lg p-8">
+        <div className="max-w-3xl mx-auto bg-white rounded-2xl border border-blue-100 shadow-lg p-5 sm:p-8 mx-4 sm:mx-auto">
           <p className="text-xs text-slate-400 uppercase tracking-wider text-center mb-6 font-semibold">Ensemble Model Architecture</p>
-          <div className="grid grid-cols-3 gap-4 mb-6">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
             {[
               { name: "Gemma 3 27B", model: "google/gemma-3-27b-it", role: "Clinical AI", icon: "🔬", color: "bg-blue-50 text-blue-700 border-blue-200" },
               { name: "Qwen 2.5 72B", model: "Qwen/Qwen2.5-72B-Instruct", role: "Guidelines AI", icon: "📋", color: "bg-violet-50 text-violet-700 border-violet-200" },
@@ -399,12 +403,12 @@ function HowItWorksSection() {
             ))}
           </div>
           <div className="flex flex-col items-center gap-2">
-            <div className="flex gap-4">
+            <div className="hidden sm:flex gap-4">
               {["bg-blue-300", "bg-violet-300", "bg-amber-300"].map((c, i) => (
                 <div key={i} className={`w-px h-8 ${c}`} />
               ))}
             </div>
-            <div className="w-9 h-9 rounded-full bg-[#0F3460] flex items-center justify-center shadow-lg">
+            <div className="w-9 h-9 mt-4 sm:mt-0 rounded-full bg-[#0F3460] flex items-center justify-center shadow-lg">
               <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
               </svg>
@@ -499,13 +503,13 @@ function PricingSection() {
           <p className="text-slate-500 text-lg">Start free. Upgrade when you need more.</p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="flex overflow-x-auto snap-x gap-5 pb-4 md:grid md:grid-cols-2 lg:grid-cols-4 md:overflow-visible [&::-webkit-scrollbar]:hidden px-4 md:px-0">
           {plans.map((plan, i) => (
             <div
               key={i}
-              className={`relative rounded-2xl p-7 transition-all hover:-translate-y-1 ${plan.popular
-                ? "bg-[#0F3460] text-white shadow-2xl shadow-blue-900/30 border-2 border-blue-700"
-                : "bg-slate-50 border border-slate-200 hover:border-blue-200 hover:shadow-md"
+              className={`relative rounded-2xl p-7 transition-all flex-shrink-0 min-w-[280px] snap-center md:min-w-0 md:hover:-translate-y-1 ${plan.popular
+                ? "bg-[#0F3460] text-white shadow-xl md:shadow-2xl md:shadow-blue-900/30 border-2 border-blue-700"
+                : "bg-slate-50 border border-slate-200 hover:border-blue-200 md:hover:shadow-md"
                 }`}
             >
               {plan.popular && (
@@ -539,7 +543,7 @@ function PricingSection() {
 
               <Link
                 href={plan.href}
-                className={`block text-center text-sm font-bold py-3 rounded-xl transition-all ${plan.popular
+                className={`block w-full text-center text-sm font-bold py-3 rounded-xl transition-all ${plan.popular
                   ? "bg-white text-[#0F3460] hover:bg-blue-50 shadow-sm"
                   : "bg-[#0F3460] text-white hover:bg-blue-800 shadow-md hover:shadow-lg"
                   }`}
@@ -560,15 +564,15 @@ function SiteFooter() {
   return (
     <footer className="bg-[#0F3460] text-white py-16">
       <div className="max-w-7xl mx-auto px-5">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
-          <div className="md:col-span-2">
-            <div className="flex items-center gap-2.5 mb-4">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12 text-center md:text-left">
+          <div className="md:col-span-2 flex flex-col items-center md:items-start">
+            <div className="flex items-center justify-center md:justify-start gap-2.5 mb-4">
               <div className="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center">
                 <span className="text-white font-bold text-sm">M</span>
               </div>
               <span className="font-bold text-xl tracking-tight">Medic24 <span className="text-blue-300">AI</span></span>
             </div>
-            <p className="text-blue-200 text-sm leading-relaxed max-w-sm mb-4">
+            <p className="text-blue-200 text-sm leading-relaxed max-w-sm mb-4 mx-auto md:mx-0">
               AI-powered clinical intelligence built in India. Chat with symptoms, analyze lab reports, look up medicines, explore first aid guides, track health with tools — all backed by Gemma 3 27B, Mixtral 8x7B, and Llama 3.1 8B working 24/7.
             </p>
             <p className="text-blue-300 text-xs">🇮🇳 Made in India by AM24 Labs</p>
@@ -591,8 +595,8 @@ function SiteFooter() {
           </div>
         </div>
 
-        <div className="rounded-xl bg-white/5 border border-white/10 p-4 mb-8">
-          <p className="text-xs text-blue-200 leading-relaxed">
+        <div className="rounded-xl bg-white/5 border border-white/10 p-4 mb-8 w-full mx-auto md:mx-0">
+          <p className="text-xs text-blue-200 leading-relaxed text-center md:text-left">
             <strong className="text-white">⚠️ Medical Disclaimer:</strong> Medic24 AI is an informational tool only and does not provide medical diagnosis, treatment, or professional medical advice. Always consult a qualified healthcare professional. In emergencies, call 112 (India).
           </p>
         </div>

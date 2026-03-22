@@ -1,7 +1,12 @@
 'use client';
 import api from '@/lib/api';
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
+import { createClient } from '@supabase/supabase-js';
 
+const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://dummy.supabase.co',
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'dummy'
+);
 interface User {
     id: string;
     name: string | null;
@@ -64,6 +69,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         localStorage.removeItem('token');
         setToken(null);
         setUser(null);
+        
+        // Also sign out of Supabase to prevent auto-relogin loops
+        supabase.auth.signOut().catch(e => console.error(e));
     };
 
     return (

@@ -5,5 +5,9 @@ export default function ConfidenceBadge({ score }: { score?: number }) {
     if (percentage < 70) color = 'bg-amber-500/10 text-amber-600 border-amber-500/20';
     if (percentage < 40) color = 'bg-red-500/10 text-red-600 border-red-500/20';
 
-    return null;
+    return (
+        <span className={`px-1.5 py-0.5 border rounded-md text-[10px] sm:text-xs font-bold ${color}`}>
+            {percentage}% Confident
+        </span>
+    );
 }
