@@ -1,6 +1,7 @@
 'use client';
 import { ChatMessage } from '@/lib/types';
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import ConfidenceBadge from './ConfidenceBadge';
 import EmergencyAlert from './EmergencyAlert';
 import MedicalDisclaimer from './MedicalDisclaimer';
@@ -61,7 +62,7 @@ export default function ChatBubble({ msg }: { msg: ChatMessage }) {
                     )}
 
                     <div className={`text-sm md:text-base prose max-w-none ${isUser ? 'prose-invert text-white' : 'prose-slate'}`}>
-                        <ReactMarkdown>{msg.content}</ReactMarkdown>
+                        <ReactMarkdown remarkPlugins={[remarkGfm]}>{msg.content}</ReactMarkdown>
                     </div>
 
                 </div>

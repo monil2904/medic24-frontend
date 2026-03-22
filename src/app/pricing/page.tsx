@@ -33,7 +33,7 @@ export default function PricingPage() {
             priceAnnual: 2990,
             popular: false,
             description: 'Great for individuals seeking more robust health analysis.',
-            features: ['50 Queries/day', '10 Multimodal Image Scans', 'Priority Support', 'Access to MedGemma'],
+            features: ['50 Queries/day', '10 Multimodal Image Scans', '5 Lab Reports/month', 'Priority Support', 'Access to MedGemma'],
             icon: <Zap className="text-cyan-500" size={24} />,
             color: 'cyan'
         },
@@ -44,7 +44,7 @@ export default function PricingPage() {
             priceAnnual: 8990,
             popular: true,
             description: 'Built for advanced usage with lab report interpretations.',
-            features: ['Unlimited General Queries', 'Unlimited Image Scans', '10 Lab Reports/month', 'Full 3-Model Ensemble (Gemma, Llama, Meditron)'],
+            features: ['Unlimited General Queries', 'Unlimited Image Scans', '10 Lab Reports/month', 'Full 3-Model Ensemble (Gemma, Llama, Qwen 2.5)'],
             icon: <Shield className="text-violet-500" size={24} />,
             color: 'violet'
         },
@@ -79,19 +79,21 @@ export default function PricingPage() {
         setSuccessMessage('');
 
         try {
-            // STEP 1: Create Order via Backend (Ideally)
-            // For now, simulating order creation and firing Razorpay Test Mode
             const options = {
                 key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || '',
                 amount: amount * 100, // Amount in paise
                 currency: 'INR',
                 name: 'Medic24 AI',
                 description: `Upgrade to ${planId.toUpperCase()} Plan`,
-                image: 'https://cdn-icons-png.flaticon.com/512/2966/2966327.png', // Temporary icon
+                image: 'https://cdn-icons-png.flaticon.com/512/2966/2966327.png',
+                notes: {
+                    user_id: user?.id || '',
+                    plan: planId,
+                },
                 handler: async function (response: any) {
                     try {
-                        // STEP 2: Verify Payment & Upgrade User via Backend
-                        const res = await api.post('/api/v1/auth/upgrade', {
+                        // Verify Payment & Upgrade User via Backend
+                        const res = await api.post('/auth/upgrade', {
                             plan: planId,
                             payment_id: response.razorpay_payment_id || 'mock_pay_id',
                             order_id: response.razorpay_order_id || 'mock_order_id',

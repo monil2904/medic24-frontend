@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import api from "@/lib/api";
+import TiltedCard from "@/components/TiltedCard";
 
 // ======================== DATA ========================
 
@@ -97,8 +98,8 @@ const plans = [
     description: "Try it out",
     features: [
       "5 text queries / day",
+      "3 image scans / month",
       "Basic medical Q&A",
-      "Text chat only",
       "Medical disclaimers",
     ],
     cta: "Start Free",
@@ -113,7 +114,7 @@ const plans = [
     features: [
       "50 text queries / day",
       "10 image analyses / month",
-      "Access to MedGemma",
+      "5 lab reports / month",
       "Priority support",
     ],
     cta: "Get Basic",
@@ -323,8 +324,22 @@ function FeaturesSection() {
         {/* Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((f, i) => (
-            <Link key={i} href={f.href} className={`group ${f.bg} rounded-2xl p-7 border border-slate-100 hover:shadow-lg transition-all hover:-translate-y-1 block`}>
-              <div className={`w-12 h-12 ${f.iconBg} rounded-xl flex items-center justify-center text-2xl mb-5 shadow-sm`}>
+            <Link
+              key={i}
+              href={f.href}
+              className={`group ${f.bg} rounded-2xl p-7 border border-slate-100 block transition-all duration-300 hover:shadow-xl`}
+              style={{ perspective: '800px' }}
+              onMouseMove={(e) => {
+                const rect = e.currentTarget.getBoundingClientRect();
+                const x = (e.clientX - rect.left) / rect.width - 0.5;
+                const y = (e.clientY - rect.top) / rect.height - 0.5;
+                e.currentTarget.style.transform = `rotateY(${x * 10}deg) rotateX(${-y * 10}deg) scale(1.03)`;
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'rotateY(0deg) rotateX(0deg) scale(1)';
+              }}
+            >
+              <div className={`w-12 h-12 ${f.iconBg} rounded-xl flex items-center justify-center text-2xl mb-5 shadow-sm group-hover:scale-110 transition-transform`}>
                 {f.emoji}
               </div>
               <h3 className="text-lg font-bold text-[#0F3460] mb-2 group-hover:text-blue-700 transition-colors">{f.title}</h3>
@@ -355,7 +370,7 @@ function HowItWorksSection() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
           {[
             { num: "01", title: "Ask anything", desc: "Type, speak, or upload an image. No jargon needed. Choose Ensemble mode for maximum accuracy or a single model for speed." },
-            { num: "02", title: "AI models analyze together", desc: "Gemma 3 27B, Mistral 7B, and Llama 3.1 8B process your query simultaneously — clinical reasoning, guideline matching, and plain-language explanation." },
+            { num: "02", title: "AI models analyze together", desc: "Gemma 3 27B, Qwen 2.5 72B, and Llama 3.1 8B process your query simultaneously — clinical reasoning, guideline matching, and plain-language explanation." },
             { num: "03", title: "Get your answer", desc: "Receive a merged, confidence-scored response with source model attribution. Emergency alerts auto-trigger for critical symptoms." },
           ].map((step, i) => (
             <div key={i} className="bg-white/80 backdrop-blur rounded-2xl p-7 border border-blue-100 shadow-sm hover:shadow-md transition-all">
@@ -372,7 +387,7 @@ function HowItWorksSection() {
           <div className="grid grid-cols-3 gap-4 mb-6">
             {[
               { name: "Gemma 3 27B", model: "google/gemma-3-27b-it", role: "Clinical AI", icon: "🔬", color: "bg-blue-50 text-blue-700 border-blue-200" },
-              { name: "Mixtral 8x7B", model: "mistralai/Mixtral-8x7B-v0.1", role: "Guidelines AI", icon: "📋", color: "bg-violet-50 text-violet-700 border-violet-200" },
+              { name: "Qwen 2.5 72B", model: "Qwen/Qwen2.5-72B-Instruct", role: "Guidelines AI", icon: "📋", color: "bg-violet-50 text-violet-700 border-violet-200" },
               { name: "Llama 3.1 8B", model: "meta/Llama-3.1-8B", role: "Easy Explain", icon: "💬", color: "bg-amber-50 text-amber-700 border-amber-200" },
             ].map((m, i) => (
               <div key={i} className={`text-center p-4 rounded-xl border ${m.color}`}>

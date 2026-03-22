@@ -1,12 +1,15 @@
 'use client';
 import { useChat } from '@/hooks/useChat';
-import { SendHorizontal } from 'lucide-react';
+import ChatSidebar from './ChatSidebar';
+import { Menu, SendHorizontal } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import ChatBubble from './ChatBubble';
 import ImageUpload from './ImageUpload';
 import LoadingIndicator from './LoadingIndicator';
 import ModelTabs from './ModelTabs';
 import PaywallModal from './PaywallModal';
+
+import { ChatMessage } from '@/lib/types';
 
 type QueryType = 'general' | 'symptom' | 'clinical' | 'drug';
 const QUERY_TYPES: { value: QueryType; label: string; description: string; color: string }[] = [
@@ -17,14 +20,18 @@ const QUERY_TYPES: { value: QueryType; label: string; description: string; color
 ];
 
 export default function ChatInterface() {
-    const { messages, sendMessage, loading, error } = useChat();
+    const { messages, setMessages, sendMessage, loading, error } = useChat();
     const [input, setInput] = useState('');
     const [selectedImage, setSelectedImage] = useState<File | null>(null);
     const [paywallOpen, setPaywallOpen] = useState(false);
     const [queryType, setQueryType] = useState<QueryType>('general');
     const [modelMode, setModelMode] = useState('ensemble');
     const [showQuerySelector, setShowQuerySelector] = useState(false);
+    const [sidebarOpen, setSidebarOpen] = useState(false);
     const messagesEndRef = useRef<HTMLDivElement>(null);
+
+    const handleNewChat = () => setMessages([]);
+    const handleSelectChat = (msgs: ChatMessage[]) => setMessages(msgs);
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -74,7 +81,15 @@ export default function ChatInterface() {
     };
 
     return (
-        <div className="flex flex-col h-full bg-slate-50">
+        <div className="flex h-full w-full bg-slate-50 overflow-hidden">
+            
+            <button onClick={() => setSidebarOpen(true)} className="md:hidden absolute top-20 left-4 z-40 p-2.5 bg-white rounded-xl shadow-lg border border-slate-200 hover:bg-slate-50 transition-colors">
+                <Menu size={20} className="text-slate-600" />
+            </button>
+            
+            <ChatSidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} onNewChat={handleNewChat} onSelectChat={handleSelectChat} />
+
+            <div className="flex-1 flex flex-col h-full relative overflow-hidden transition-all duration-300">
 
             {/* Paywall Overlay */}
             {paywallOpen && (
@@ -156,7 +171,7 @@ export default function ChatInterface() {
                     <ModelTabs selectedMode={modelMode} onSelect={setModelMode} />
                     <form
                         onSubmit={handleSubmit}
-                        className="flex items-end gap-3 rounded-3xl border border-slate-300 bg-white transition-all shadow-sm focus-within:border-cyan-400 focus-within:ring-4 focus-within:ring-cyan-500/10 p-2 pr-4"
+                        className="flex items-end gap-3 rounded-2xl border border-slate-200 bg-white transition-all shadow-md focus-within:border-blue-400 focus-within:ring-4 focus-within:ring-blue-500/10 p-2.5 pr-4"
                     >
                         <ImageUpload
                             selectedFile={selectedImage}
@@ -168,14 +183,14 @@ export default function ChatInterface() {
                             type="button"
                             onClick={() => setShowQuerySelector(v => !v)}
                             title="Change query focus"
-                            className="flex items-center gap-1 text-xs text-slate-500 border-r border-slate-200 pr-3 mr-1 py-1 hover:text-cyan-600 transition-colors whitespace-nowrap"
+                            className="flex items-center gap-1 text-xs font-bold text-slate-500 border-r border-slate-100 pr-3 mr-1 py-1 hover:text-blue-600 transition-colors whitespace-nowrap"
                         >
                             {QUERY_TYPE_LABELS[queryType]}
-                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6" /></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6" /></svg>
                         </button>
 
                         <textarea
-                            className="flex-1 max-h-32 min-h-[44px] bg-transparent resize-none outline-none py-3 px-2 text-slate-700 placeholder:text-slate-400 text-sm sm:text-base"
+                            className="flex-1 max-h-32 min-h-[44px] bg-transparent resize-none outline-none py-2.5 px-2 text-slate-800 font-medium placeholder:text-slate-400 text-sm sm:text-base"
                             placeholder={selectedImage ? 'Add details about this image...' : 'Ask a medical question...'}
                             value={input}
                             onChange={(e) => setInput(e.target.value)}
@@ -188,8 +203,8 @@ export default function ChatInterface() {
                         <button
                             type="submit"
                             disabled={loading || (!input.trim() && !selectedImage)}
-                            className="mb-1 p-3 rounded-full flex-shrink-0 transition-all font-semibold shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500
-                bg-gradient-to-r from-cyan-500 to-blue-600 text-white hover:shadow-md hover:shadow-cyan-500/30 disabled:opacity-50 disabled:grayscale"
+                            className="mb-0.5 p-2.5 rounded-xl flex-shrink-0 transition-all shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500
+                bg-blue-600 text-white hover:bg-blue-700 hover:shadow-md disabled:bg-slate-200 disabled:text-slate-400"
                         >
                             <SendHorizontal size={20} />
                         </button>
@@ -201,6 +216,7 @@ export default function ChatInterface() {
                         </span>
                     </div>
                 </div>
+            </div>
             </div>
         </div>
     );
