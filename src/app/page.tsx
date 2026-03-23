@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import api from "@/lib/api";
+import Footer from "@/components/layout/Footer";
 
 // ======================== DATA ========================
 
@@ -163,8 +164,8 @@ function SiteNavbar() {
       <div className="max-w-7xl mx-auto px-5 h-16 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 group">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-600 to-blue-900 flex items-center justify-center shadow-md">
-            <span className="text-white font-bold text-sm">M</span>
+          <div className="w-9 h-9 rounded-xl overflow-hidden shadow-md flex items-center justify-center bg-white group-hover:scale-105 transition-transform duration-300">
+            <img src="/logo.ico" alt="Medic24 Logo" className="w-full h-full object-contain" />
           </div>
           <span className="font-bold text-xl text-[#0F3460] tracking-tight">
             Medic24 <span className="text-blue-500">AI</span>
@@ -241,15 +242,10 @@ function HeroSection() {
 
       <div className="relative z-10 max-w-4xl mx-auto px-5 text-center">
         {/* Badge */}
-        <div className="inline-flex items-center gap-2 bg-white/80 border border-blue-200 rounded-full px-4 py-1.5 mb-8 shadow-sm">
-          <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-          <span className="text-sm text-blue-800 font-medium">Powered by Gemma 3 27B · Mixtral 8x7B · Llama 3.1 8B</span>
-        </div>
-
         {/* Headline */}
-        <h1 className="text-3xl sm:text-6xl md:text-7xl font-black text-[#0F3460] leading-tight tracking-tight mb-6">
-          Your Clinical<br />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-900">Intelligence Partner</span>
+        <h1 className="text-4xl sm:text-6xl md:text-7xl font-black text-[#0F3460] leading-tight tracking-tight mb-6">
+          Healthcare at Your<br />
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-900">Fingertips. 24/7</span>
         </h1>
 
         {/* Subtitle */}
@@ -560,54 +556,7 @@ function PricingSection() {
 
 // ======================== FOOTER ========================
 
-function SiteFooter() {
-  return (
-    <footer className="bg-[#0F3460] text-white py-16">
-      <div className="max-w-7xl mx-auto px-5">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12 text-center md:text-left">
-          <div className="md:col-span-2 flex flex-col items-center md:items-start">
-            <div className="flex items-center justify-center md:justify-start gap-2.5 mb-4">
-              <div className="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center">
-                <span className="text-white font-bold text-sm">M</span>
-              </div>
-              <span className="font-bold text-xl tracking-tight">Medic24 <span className="text-blue-300">AI</span></span>
-            </div>
-            <p className="text-blue-200 text-sm leading-relaxed max-w-sm mb-4 mx-auto md:mx-0">
-              AI-powered clinical intelligence built in India. Chat with symptoms, analyze lab reports, look up medicines, explore first aid guides, track health with tools — all backed by Gemma 3 27B, Mixtral 8x7B, and Llama 3.1 8B working 24/7.
-            </p>
-            <p className="text-blue-300 text-xs">🇮🇳 Made in India by AM24 Labs</p>
-          </div>
-          <div>
-            <h4 className="text-sm font-bold text-white mb-4">Product</h4>
-            <ul className="space-y-2.5">
-              {[["Chat", "/chat"], ["Medicine Lookup", "/medicine"], ["Health Tips", "/tips"], ["First Aid Guide", "/first-aid"], ["Health Tools", "/tools"], ["Compare Reports", "/compare"], ["Lab Analysis", "/lab-report"], ["Pricing", "/pricing"]].map(([label, href]) => (
-                <li key={label}><Link href={href} className="text-sm text-blue-300 hover:text-white transition-colors">{label}</Link></li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <h4 className="text-sm font-bold text-white mb-4">Legal</h4>
-            <ul className="space-y-2.5">
-              {[["Privacy Policy", "/privacy"], ["Terms of Service", "/terms"], ["Medical Disclaimer", "/disclaimer"]].map(([label, href]) => (
-                <li key={label}><Link href={href} className="text-sm text-blue-300 hover:text-white transition-colors">{label}</Link></li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        <div className="rounded-xl bg-white/5 border border-white/10 p-4 mb-8 w-full mx-auto md:mx-0">
-          <p className="text-xs text-blue-200 leading-relaxed text-center md:text-left">
-            <strong className="text-white">⚠️ Medical Disclaimer:</strong> Medic24 AI is an informational tool only and does not provide medical diagnosis, treatment, or professional medical advice. Always consult a qualified healthcare professional. In emergencies, call 112 (India).
-          </p>
-        </div>
-
-        <div className="flex items-center justify-between pt-6 border-t border-white/10">
-          <p className="text-xs text-blue-400">© 2026 AM24 Labs. All rights reserved.</p>
-        </div>
-      </div>
-    </footer>
-  );
-}
+// Removed SiteFooter content since we're using the standard Footer
 
 // ======================== MAIN PAGE ========================
 
@@ -620,7 +569,7 @@ export default function Home() {
       <HowItWorksSection />
       <TodaysTipSection />
       <PricingSection />
-      <SiteFooter />
+      <Footer />
     </main>
   );
 }

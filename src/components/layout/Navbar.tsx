@@ -29,8 +29,8 @@ export default function Navbar() {
                         {/* Left: Logo */}
                         <div className="flex-shrink-0">
                             <Link href="/" className="flex items-center gap-2.5 group">
-                                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-800 flex items-center justify-center shadow-md group-hover:shadow-blue-600/30 transition-shadow">
-                                    <span className="text-white font-bold text-lg leading-none">M</span>
+                                <div className="w-10 h-10 rounded-xl overflow-hidden shadow-md group-hover:shadow-blue-600/30 transition-all duration-300 group-hover:scale-105 flex items-center justify-center bg-white">
+                                    <img src="/logo.ico" alt="Medic24 Logo" className="w-full h-full object-contain" />
                                 </div>
                                 <span className="font-bold text-lg md:text-xl text-slate-800 tracking-tight hidden sm:block">
                                     Medic24<span className="text-blue-600">.ai</span>

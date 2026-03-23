@@ -4,6 +4,7 @@ import Navbar from "@/components/layout/Navbar";
 import api from "@/lib/api";
 import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 type QueryType = "info" | "interactions" | "dosage" | "side_effects";
 
@@ -219,8 +220,8 @@ export default function MedicinePage() {
             <div className="mb-8 w-full">
               <h2 className="text-xl sm:text-2xl font-bold text-[#0F3460] mb-4">{currentMedicine}</h2>
               <div className="bg-white rounded-2xl p-5 sm:p-6 border border-slate-200 shadow-sm w-full overflow-hidden">
-                <div className="prose prose-blue prose-headings:text-[#0F3460] prose-h2:text-xl sm:prose-h2:text-2xl prose-h2:border-b prose-h2:pb-2 prose-h2:mt-6 max-w-none text-sm sm:text-base break-words [word-break:break-word] text-slate-700">
-                  <ReactMarkdown>{response}</ReactMarkdown>
+              <div className="medicine-content max-w-none text-sm sm:text-base break-words [word-break:break-word]">
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>{response}</ReactMarkdown>
                 </div>
               </div>
 

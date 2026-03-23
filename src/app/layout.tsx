@@ -7,7 +7,7 @@ const dmSans = DM_Sans({ subsets: ["latin"], variable: "--font-body" });
 const bricolage = Bricolage_Grotesque({ subsets: ["latin"], variable: "--font-display" });
 
 export const metadata: Metadata = {
-  title: 'Medic24 AI - Your Personal Medical Assistant',
+  title: 'Medic24 AI - Healthcare at Your Fingertips. 24/7',
   description: 'AI-powered chatbot for medical queries, lab report analysis, and clinical insights.',
 };
 
