@@ -9,7 +9,7 @@ export default function Footer() {
                     <div className="md:col-span-2 flex flex-col items-center md:items-start">
                         <div className="flex items-center justify-center md:justify-start gap-2.5 mb-4 group">
                             <div className="w-10 h-10 rounded-xl overflow-hidden shadow-md flex items-center justify-center bg-white">
-                                <img src="/logo.ico" alt="Medic24 Logo" className="w-full h-full object-contain" />
+                                <img src="/black-outline-monogram.svg" alt="Medic24 Logo" className="w-full h-full object-contain" />
                             </div>
                             <span className="font-bold text-2xl text-white tracking-tight">
                                 Medic24 <span className="text-blue-300">AI</span>

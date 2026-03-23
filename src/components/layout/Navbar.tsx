@@ -30,11 +30,9 @@ export default function Navbar() {
                         <div className="flex-shrink-0">
                             <Link href="/" className="flex items-center gap-2.5 group">
                                 <div className="w-10 h-10 rounded-xl overflow-hidden shadow-md group-hover:shadow-blue-600/30 transition-all duration-300 group-hover:scale-105 flex items-center justify-center bg-white">
-                                    <img src="/logo.ico" alt="Medic24 Logo" className="w-full h-full object-contain" />
+                                    <img src="/black-outline-monogram.svg" alt="Medic24 Logo" className="w-full h-full object-contain" />
                                 </div>
-                                <span className="font-bold text-lg md:text-xl text-slate-800 tracking-tight hidden sm:block">
-                                    Medic24<span className="text-blue-600">.ai</span>
-                                </span>
+                                <img src="/black-wordmark-with-centered-slogan.svg" alt="Medic24 AI" className="h-12 md:h-14 object-contain hidden sm:block w-auto" />
                             </Link>
                         </div>
 
@@ -135,9 +133,7 @@ export default function Navbar() {
                 <div className="fixed inset-0 z-[1000] bg-slate-950/98 backdrop-blur-xl overflow-y-auto w-full h-full text-white md:hidden">
                     <div className="flex flex-col min-h-full px-6 py-6 border-box">
                         <div className="flex justify-between items-center mb-8">
-                            <span className="font-bold text-xl tracking-tight">
-                                Medic24<span className="text-blue-500">.ai</span>
-                            </span>
+                                <img src="/black-wordmark-with-centered-slogan.svg" alt="Medic24 AI" className="h-14 object-contain block w-auto" />
                             <button onClick={() => setMobileMenuOpen(false)} className="p-3 text-slate-400 hover:text-white focus:outline-none bg-white/5 rounded-xl">
                                 <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />

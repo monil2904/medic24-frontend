@@ -26,7 +26,7 @@ export default function LoginPage() {
         // Listen for Supabase OAuth redirects to sync with our custom backend JWT
         const { data: authListener } = supabase.auth.onAuthStateChange(async (event, session) => {
             console.log("Supabase Auth Event:", event);
-            if ((event === 'SIGNED_IN' || event === 'INITIAL_SESSION') && session?.access_token) {
+            if (event === 'SIGNED_IN' && session?.access_token) {
                 console.log("Session found! Sending to backend...");
                 try {
                     const resp = await api.post('/auth/supabase', { access_token: session.access_token });
@@ -96,7 +96,7 @@ export default function LoginPage() {
                     <div className="h-10 w-10 bg-primary text-white flex items-center justify-center rounded-xl font-bold text-xl">
                         M
                     </div>
-                    <span className="text-2xl font-bold text-slate-800">Medic24 <span className="text-primary font-black">AI</span></span>
+                    <img src="/black-wordmark-with-centered-slogan.svg" alt="Medic24 AI" className="h-16 object-contain w-auto" />
                 </Link>
             </div>
             <div className="flex-1 flex flex-col justify-center py-8 px-4 sm:px-6 lg:px-8">

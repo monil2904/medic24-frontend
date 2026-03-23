@@ -24,6 +24,10 @@ export default function ChatSidebar({ onNewChat, onSelectChat, isOpen, setIsOpen
     const [loading, setLoading] = useState(true);
 
     const fetchHistory = async () => {
+        if (typeof window !== 'undefined' && !localStorage.getItem('token')) {
+            setLoading(false);
+            return;
+        }
         try {
             setLoading(true);
             const res = await api.get('/api/v1/chat/history?limit=20');

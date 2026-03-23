@@ -165,11 +165,9 @@ function SiteNavbar() {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 group">
           <div className="w-9 h-9 rounded-xl overflow-hidden shadow-md flex items-center justify-center bg-white group-hover:scale-105 transition-transform duration-300">
-            <img src="/logo.ico" alt="Medic24 Logo" className="w-full h-full object-contain" />
+            <img src="/black-outline-monogram.svg" alt="Medic24 Logo" className="w-full h-full object-contain" />
           </div>
-          <span className="font-bold text-xl text-[#0F3460] tracking-tight">
-            Medic24 <span className="text-blue-500">AI</span>
-          </span>
+          <img src="/black-wordmark-with-centered-slogan.svg" alt="Medic24 AI" className="h-14 object-contain w-auto" />
         </Link>
 
         {/* Desktop Nav */}
