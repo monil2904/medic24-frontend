@@ -79,25 +79,26 @@ export default function PricingPage() {
         setSuccessMessage('');
 
         try {
+            // First, create the subscription from backend
+            const subRes = await api.post('/api/v1/payments/create-subscription', {
+                plan_id: planId,
+                billing: isAnnual ? 'yearly' : 'monthly'
+            });
+            const subscriptionId = subRes.data.subscription_id;
+
             const options = {
                 key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || '',
-                amount: amount * 100, // Amount in paise
-                currency: 'INR',
+                subscription_id: subscriptionId,
                 name: 'Medic24 AI',
                 description: `Upgrade to ${planId.toUpperCase()} Plan`,
                 image: 'https://cdn-icons-png.flaticon.com/512/2966/2966327.png',
-                notes: {
-                    user_id: user?.id || '',
-                    plan: planId,
-                },
                 handler: async function (response: any) {
                     try {
                         // Verify Payment & Upgrade User via Backend
-                        const res = await api.post('/auth/upgrade', {
-                            plan: planId,
-                            payment_id: response.razorpay_payment_id || 'mock_pay_id',
-                            order_id: response.razorpay_order_id || 'mock_order_id',
-                            signature: response.razorpay_signature || 'mock_sig'
+                        const res = await api.post('/api/v1/payments/verify-payment', {
+                            razorpay_payment_id: response.razorpay_payment_id,
+                            razorpay_subscription_id: response.razorpay_subscription_id,
+                            razorpay_signature: response.razorpay_signature
                         });
 
                         await refreshUser();
