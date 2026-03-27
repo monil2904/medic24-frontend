@@ -29,8 +29,8 @@ export default function PricingPage() {
         {
             id: 'basic',
             name: 'Basic',
-            priceMonthly: 299,
-            priceAnnual: 2990,
+            priceMonthly: 99,
+            priceAnnual: 949,
             popular: false,
             description: 'Great for individuals seeking more robust health analysis.',
             features: ['50 Queries/day', '10 Multimodal Image Scans', '5 Lab Reports/month', 'Priority Support', 'Access to MedGemma'],
@@ -40,8 +40,8 @@ export default function PricingPage() {
         {
             id: 'pro',
             name: 'Pro',
-            priceMonthly: 899,
-            priceAnnual: 8990,
+            priceMonthly: 299,
+            priceAnnual: 2869,
             popular: true,
             description: 'Built for advanced usage with lab report interpretations.',
             features: ['Unlimited General Queries', 'Unlimited Image Scans', '10 Lab Reports/month', 'Full 3-Model Ensemble (Gemma, Llama, Qwen 2.5)'],
@@ -51,8 +51,8 @@ export default function PricingPage() {
         {
             id: 'medical_pro',
             name: 'Medical Pro',
-            priceMonthly: 2499,
-            priceAnnual: 24990,
+            priceMonthly: 999,
+            priceAnnual: 9590,
             popular: false,
             description: 'Designed for medical students and professionals.',
             features: ['Unlimited Everything', 'Clinical Guidelines Priority', 'API Access', '24/7 Dedicated Support', 'White-label Export'],

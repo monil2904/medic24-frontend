@@ -1,4 +1,4 @@
-"use client";
+ "use client";
 
 import Navbar from "@/components/layout/Navbar";
 import api from "@/lib/api";
@@ -57,7 +57,7 @@ export default function MedicinePage() {
         query_type: overrideQueryType ?? queryType,
       });
 
-      setResponse(data.data.response || "");
+      setResponse(data.data.analysis || data.data.response || "");
       setCurrentMedicine(medicine);
       setMedicineSearch("");
     } catch (err: any) {

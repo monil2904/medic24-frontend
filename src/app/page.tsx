@@ -108,7 +108,7 @@ const plans = [
   },
   {
     name: "Basic",
-    price: "₹299",
+    price: "₹99",
     period: "/mo",
     description: "For regular use",
     features: [
@@ -123,7 +123,7 @@ const plans = [
   },
   {
     name: "Pro",
-    price: "₹899",
+    price: "₹299",
     period: "/mo",
     description: "Full power",
     features: [
@@ -139,7 +139,7 @@ const plans = [
   },
   {
     name: "Medical Pro",
-    price: "₹2,499",
+    price: "₹999",
     period: "/mo",
     description: "For professionals",
     features: [
